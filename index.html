@@ -12,10 +12,10 @@
     }
 
     body {
-      background-color: #0b0f0b;
-      color: #c6d4c0;
+      background-color: #040604;
+      color: #b0c4aa;
       font-family: 'Courier New', 'Lucida Console', monospace;
-      padding: 20px;
+      padding: 16px;
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -25,179 +25,165 @@
     .container {
       max-width: 1500px;
       width: 100%;
-      background: #101710;
-      border: 2px solid #1e3b1e;
-      box-shadow: 0 0 40px rgba(0, 30, 0, 0.8);
-      padding: 24px 20px 30px;
-      border-radius: 28px;
-      backdrop-filter: blur(1px);
+      background: #080d08;
+      border: 2px solid #142214;
+      box-shadow: 0 0 60px rgba(0, 15, 0, 0.9), inset 0 0 80px rgba(0, 10, 0, 0.6);
+      padding: 20px 16px 24px;
+      border-radius: 24px;
     }
 
     /* ===== СЕТКА КАМЕР ===== */
     .camera-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 40px;
+      gap: 12px;
+      margin-bottom: 34px;
     }
 
     .cam {
-      background: #0f1a0f;
-      border: 2px solid #1f3a1f;
-      border-radius: 20px;
+      background: #070c07;
+      border: 2px solid #142214;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: inset 0 0 20px #030803, 0 6px 12px rgba(0,0,0,0.6);
-      transition: all 0.2s;
+      box-shadow: inset 0 0 30px #020502, 0 6px 16px rgba(0, 0, 0, 0.8);
+      transition: all 0.25s;
       display: flex;
       flex-direction: column;
     }
     .cam:hover {
-      border-color: #3d7a3d;
-      box-shadow: 0 0 20px #1e4a1e;
+      border-color: #2a4a2a;
+      box-shadow: 0 0 30px #0a1a0a;
     }
 
     .cam video {
       width: 100%;
       aspect-ratio: 4 / 3;
       object-fit: cover;
-      background: #0c130c;
+      background: #030603;
       display: block;
-      border-bottom: 2px solid #1f3a1f;
+      border-bottom: 2px solid #142214;
     }
 
     .cam-label {
-      padding: 8px 12px;
-      background: #101710;
-      font-size: 0.85rem;
+      padding: 7px 12px;
+      background: #070c07;
+      font-size: 0.8rem;
       letter-spacing: 2px;
-      color: #6a8f6a;
-      border-top: 1px solid #1f3a1f;
+      color: #4a6f4a;
+      border-top: 1px solid #142214;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
     .cam-label span {
-      color: #3f6b3f;
+      color: #2f552f;
     }
     .cam-broken .cam-label {
-      color: #6f4a4a;
-      background: #1e1414;
-      border-color: #4f2f2f;
+      color: #5f3f3f;
+      background: #120b0b;
+      border-color: #3a2222;
     }
     .cam-broken .cam-label span {
-      color: #8f5555;
+      color: #7f4a4a;
     }
     .cam-broken video {
-      filter: grayscale(0.9) brightness(0.4);
-      border-bottom-color: #4f2f2f;
+      filter: grayscale(0.95) brightness(0.3) contrast(0.6);
+      border-bottom-color: #3a2222;
     }
 
-    /* ===== ОСНОВНОЙ КОНТЕНТ: три столбца ===== */
+    /* ===== ТРИ СТОЛБЦА ===== */
     .columns {
       display: grid;
       grid-template-columns: 1fr 1.2fr 1.2fr;
-      gap: 24px;
-      margin-top: 10px;
+      gap: 20px;
+      margin-top: 6px;
     }
 
     .col {
-      background: #0f170f;
-      border: 1px solid #1d351d;
-      border-radius: 20px;
-      padding: 22px 18px;
-      box-shadow: inset 0 0 30px #060b06;
-      backdrop-filter: blur(2px);
+      background: #090f09;
+      border: 1px solid #142214;
+      border-radius: 18px;
+      padding: 20px 16px;
+      box-shadow: inset 0 0 40px #030803;
     }
 
     .col-header {
-      font-size: 1.1rem;
+      font-size: 1rem;
       letter-spacing: 4px;
       text-transform: uppercase;
-      color: #5d825d;
-      border-bottom: 2px solid #1e3a1e;
-      padding-bottom: 12px;
-      margin-bottom: 20px;
+      color: #456845;
+      border-bottom: 2px solid #142214;
+      padding-bottom: 10px;
+      margin-bottom: 18px;
       font-weight: 300;
       display: flex;
       align-items: center;
       gap: 8px;
     }
     .col-header small {
-      font-size: 0.7rem;
-      color: #3a5a3a;
+      font-size: 0.65rem;
+      color: #2a4a2a;
       letter-spacing: 1px;
     }
 
-    /* --- первый столбец: текст "ЭТО МЕСТО МЕНЯЕТ..." --- */
+    /* первый столбец */
     .poem-text {
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       line-height: 1.7;
-      color: #b8cfb0;
-      text-shadow: 0 0 6px #142014;
+      color: #a8c0a0;
+      text-shadow: 0 0 8px #060d06;
       white-space: pre-line;
       font-weight: 300;
-      letter-spacing: 0.3px;
+      letter-spacing: 0.2px;
     }
     .poem-text .highlight {
-      color: #8bb87b;
-      font-weight: 500;
-      letter-spacing: 1px;
+      color: #6f9f6a;
+      font-weight: 400;
+      letter-spacing: 0.5px;
     }
 
-    /* --- второй столбец: АРХИВ (записи) --- */
+    /* архивные записи */
     .archive-entry {
-      margin-bottom: 24px;
-      border-left: 2px solid #2b4a2b;
+      margin-bottom: 22px;
+      border-left: 2px solid #1a3a1a;
       padding-left: 14px;
     }
     .archive-entry:last-child {
       margin-bottom: 0;
     }
     .archive-title {
-      color: #7fa87f;
-      font-size: 0.8rem;
+      color: #5f8a5f;
+      font-size: 0.75rem;
       letter-spacing: 2px;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       font-weight: 600;
     }
     .archive-body {
-      font-size: 0.8rem;
+      font-size: 0.76rem;
       line-height: 1.6;
-      color: #b0c9aa;
+      color: #a0b89a;
       white-space: pre-wrap;
       word-break: break-word;
     }
     .archive-body .glitch {
-      color: #6a9f6a;
-      background: #0c1a0c;
+      color: #4f8a4f;
+      background: #0a140a;
       padding: 0 4px;
-      border-radius: 6px;
+      border-radius: 4px;
       font-family: monospace;
     }
 
-    /* третий столбец — дополнительный (можно оставить как архив или расширение) */
     .col-extra .archive-entry {
-      border-left-color: #3d5e3d;
+      border-left-color: #2a4a2a;
     }
     .col-extra .archive-title {
-      color: #7f9f7f;
-    }
-
-    /* ===== МЕЛКИЕ ДЕТАЛИ ===== */
-    .stat-badge {
-      display: inline-block;
-      background: #1a2a1a;
-      padding: 2px 12px;
-      border-radius: 40px;
-      font-size: 0.7rem;
-      color: #628a62;
-      border: 1px solid #284228;
+      color: #5f7f5f;
     }
 
     hr {
       border: none;
-      border-top: 1px solid #1d351d;
-      margin: 18px 0 8px;
+      border-top: 1px solid #142214;
+      margin: 16px 0 6px;
     }
 
     /* адаптив */
@@ -207,7 +193,7 @@
       }
       .columns {
         grid-template-columns: 1fr;
-        gap: 28px;
+        gap: 24px;
       }
     }
     @media (max-width: 600px) {
@@ -215,18 +201,32 @@
         grid-template-columns: 1fr;
       }
       .container {
-        padding: 14px;
+        padding: 12px;
       }
     }
 
-    /* анимация пульсации для сломанной камеры */
+    /* анимация сломанной камеры */
     .cam-broken {
-      animation: glitch-border 2.8s infinite;
+      animation: glitch-border 3s infinite;
     }
     @keyframes glitch-border {
-      0% { border-color: #3f2a2a; }
-      50% { border-color: #6f3a3a; box-shadow: 0 0 20px #2f1a1a; }
-      100% { border-color: #3f2a2a; }
+      0% { border-color: #2a1a1a; }
+      50% { border-color: #5a2a2a; box-shadow: 0 0 25px #1f0f0f; }
+      100% { border-color: #2a1a1a; }
+    }
+
+    /* подвал */
+    .footer-status {
+      margin-top: 24px;
+      border-top: 1px solid #142214;
+      padding-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.7rem;
+      color: #385238;
+      letter-spacing: 1px;
     }
   </style>
 </head>
@@ -260,7 +260,7 @@
     <div class="cam cam-broken">
       <video src="0004.mp4" muted autoplay loop></video>
       <div class="cam-label">
-        <span>✖</span> 0004 <span style="color:#8f5555;">СЛОМАНА</span>
+        <span>✖</span> 0004 <span style="color:#6f3f3f;">СЛОМАНА</span>
       </div>
     </div>
   </div>
@@ -268,7 +268,7 @@
   <!-- ====== ТРИ СТОЛБЦА ====== -->
   <div class="columns">
 
-    <!-- СТОЛБЕЦ 1: текст "ЭТО МЕСТО МЕНЯЕТ..." -->
+    <!-- СТОЛБЕЦ 1: текст -->
     <div class="col">
       <div class="col-header">
         <span>⬡</span> ЗАПИСИ <small>// живой текст</small>
@@ -318,7 +318,7 @@
       </div>
     </div>
 
-    <!-- СТОЛБЕЦ 2: АРХИВ (запись 1, 2, 3, 4) -->
+    <!-- СТОЛБЕЦ 2: АРХИВ -->
     <div class="col">
       <div class="col-header">
         <span>⏣</span> АРХИВ <small>// лог-файлы</small>
@@ -402,7 +402,7 @@
       </div>
     </div>
 
-    <!-- СТОЛБЕЦ 3: дополнительный (можно оставить как резерв или ещё архив) -->
+    <!-- СТОЛБЕЦ 3: доп. архив -->
     <div class="col col-extra">
       <div class="col-header">
         <span>⏣</span> АРХИВ <small>// фрагменты</small>
@@ -441,7 +441,7 @@
 Я начинаю сначала.</div>
       </div>
       <hr>
-      <div style="font-size:0.7rem; color:#3a5a3a; margin-top:12px; letter-spacing:1px;">
+      <div style="font-size:0.65rem; color:#2a4a2a; margin-top:10px; letter-spacing:1px;">
         <span>⚡ СИСТЕМА: НЕСТАБИЛЬНА</span> <br>
         <span>▪ БЕЛЫЙ ШУМ: 2.4 кГц</span>
       </div>
@@ -449,8 +449,8 @@
 
   </div> <!-- /columns -->
 
-  <!-- подвал-статус -->
-  <div style="margin-top: 28px; border-top: 1px solid #1d351d; padding-top: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size:0.75rem; color: #4b6f4b;">
+  <!-- подвал -->
+  <div class="footer-status">
     <span>◉ ВИДЕОНАБЛЮДЕНИЕ · АКТИВНО</span>
     <span>⏣ 0001 · 0002 · 0003 · [0004 ОТКАЗ]</span>
     <span>❚❚❚❚❚❚❚❚❚❚ 91%</span>
