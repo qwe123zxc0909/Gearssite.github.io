@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gears · наблюдение</title>
+  <title>ТАЙГА · наблюдение</title>
   <style>
     * {
       margin: 0;
@@ -146,7 +146,7 @@
       85% { opacity: 0; transform: scaleY(0); }
     }
 
-    /* ===== ЛАГИ ПОВЕРХ КОНТЕНТА (z-index выше) ===== */
+    /* ===== ЛАГИ ПОВЕРХ КОНТЕНТА ===== */
     .glitch-overlay {
       position: fixed;
       top: 0;
@@ -224,7 +224,6 @@
       96% { opacity: 0; }
     }
 
-    /* небольшие красные пятна-артефакты поверх */
     .glitch-artifacts {
       position: fixed;
       top: 0;
@@ -314,6 +313,8 @@
     .cam-label span {
       color: #2a402a;
     }
+
+    /* --- СТИЛИ ДЛЯ НЕРАБОТАЮЩИХ КАМЕР --- */
     .cam-broken .cam-label {
       color: #4a2f2f;
       background: #0a0606;
@@ -325,6 +326,110 @@
     .cam-broken video {
       filter: grayscale(1) brightness(0.2) contrast(0.5);
       border-bottom-color: #2a1515;
+    }
+
+    /* камера 0004 — сломана с красной анимацией */
+    .cam-0004 {
+      animation: glitch-border 3.2s infinite;
+    }
+    @keyframes glitch-border {
+      0% { border-color: #1a0f0f; }
+      50% { border-color: #3f1f1f; box-shadow: 0 0 30px #150a0a; }
+      100% { border-color: #1a0f0f; }
+    }
+
+    /* камера 0005 — "нет сигнала" с мерцанием */
+    .cam-0005 {
+      animation: noSignal 1.5s infinite;
+    }
+    @keyframes noSignal {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+    .cam-0005 video {
+      filter: grayscale(1) brightness(0.1) contrast(0.3);
+      position: relative;
+    }
+    .cam-0005 .cam-label {
+      color: #5f3f3f;
+      background: #0a0606;
+      border-color: #2a1515;
+    }
+    .cam-0005 .cam-label span {
+      color: #7f4a4a;
+    }
+
+    /* камера 0006 — "статический шум" с горизонтальными полосами */
+    .cam-0006 {
+      animation: staticNoise 0.8s infinite;
+    }
+    @keyframes staticNoise {
+      0%, 100% { border-color: #1a0f0f; }
+      25% { border-color: #3f1f1f; }
+      50% { border-color: #0f0a0a; }
+      75% { border-color: #2f1a1a; }
+    }
+    .cam-0006 video {
+      filter: grayscale(1) brightness(0.15) contrast(0.4);
+      position: relative;
+    }
+    .cam-0006 video::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent 0px,
+        rgba(80, 0, 0, 0.05) 2px,
+        transparent 4px
+      );
+      pointer-events: none;
+    }
+    .cam-0006 .cam-label {
+      color: #5f3f3f;
+      background: #0a0606;
+      border-color: #2a1515;
+    }
+    .cam-0006 .cam-label span {
+      color: #7f4a4a;
+    }
+
+    /* камера 0007 — "ошибка подключения" с пунктирной рамкой и крестом */
+    .cam-0007 {
+      border-style: dashed;
+      border-color: #3f1f1f;
+      animation: dashedGlitch 2s infinite;
+    }
+    @keyframes dashedGlitch {
+      0%, 100% { border-color: #3f1f1f; border-style: dashed; }
+      50% { border-color: #5f2f2f; border-style: dotted; }
+    }
+    .cam-0007 video {
+      filter: grayscale(1) brightness(0.05) contrast(0.2);
+      position: relative;
+    }
+    .cam-0007 .cam-label {
+      color: #5f3f3f;
+      background: #0a0606;
+      border-color: #2a1515;
+    }
+    .cam-0007 .cam-label span {
+      color: #7f4a4a;
+    }
+    .cam-0007::before {
+      content: '✖';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+      color: rgba(120, 30, 30, 0.3);
+      z-index: 2;
+      pointer-events: none;
+      font-weight: 300;
     }
 
     /* ===== ТРИ СТОЛБЦА ===== */
@@ -422,33 +527,6 @@
       margin: 14px 0 4px;
     }
 
-    @media (max-width: 1100px) {
-      .camera-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .columns {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-    }
-    @media (max-width: 600px) {
-      .camera-grid {
-        grid-template-columns: 1fr;
-      }
-      .container {
-        padding: 10px;
-      }
-    }
-
-    .cam-broken {
-      animation: glitch-border 3.2s infinite;
-    }
-    @keyframes glitch-border {
-      0% { border-color: #1a0f0f; }
-      50% { border-color: #3f1f1f; box-shadow: 0 0 30px #150a0a; }
-      100% { border-color: #1a0f0f; }
-    }
-
     .footer-status {
       margin-top: 20px;
       border-top: 1px solid #0a150a;
@@ -463,11 +541,34 @@
       position: relative;
       z-index: 2;
     }
+
+    @media (max-width: 1100px) {
+      .camera-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .columns {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+    @media (max-width: 768px) {
+      .camera-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 500px) {
+      .camera-grid {
+        grid-template-columns: 1fr;
+      }
+      .container {
+        padding: 10px;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- ===== ЛАГИ ПОД КОНТЕНТОМ (z-index: 0) ===== -->
+  <!-- ===== ЛАГИ ПОД КОНТЕНТОМ ===== -->
   <div class="glitch-background">
     <div class="glitch-line-bg"></div>
     <div class="glitch-line-bg"></div>
@@ -499,7 +600,7 @@
     <div class="vline"></div>
   </div>
 
-  <!-- ===== ЛАГИ ПОВЕРХ КОНТЕНТА (z-index: 10) ===== -->
+  <!-- ===== ЛАГИ ПОВЕРХ КОНТЕНТА ===== -->
   <div class="glitch-overlay">
     <div class="glitch-line"></div>
     <div class="glitch-line"></div>
@@ -526,30 +627,61 @@
 
 <div class="container">
 
-  <!-- ====== КАМЕРЫ ====== -->
+  <!-- ====== КАМЕРЫ (7 штук) ====== -->
   <div class="camera-grid">
+    <!-- камера 1: работает -->
     <div class="cam">
       <video src="0001.mp4" muted autoplay loop></video>
       <div class="cam-label">
         <span>◉</span> 0001 <span>▪▪▪</span>
       </div>
     </div>
+
+    <!-- камера 2: работает -->
     <div class="cam">
       <video src="0002.mp4" muted autoplay loop></video>
       <div class="cam-label">
         <span>◉</span> 0002 <span>▪▪▪</span>
       </div>
     </div>
+
+    <!-- камера 3: работает -->
     <div class="cam">
       <video src="0003.mp4" muted autoplay loop></video>
       <div class="cam-label">
         <span>◉</span> 0003 <span>▪▪▪</span>
       </div>
     </div>
-    <div class="cam cam-broken">
+
+    <!-- камера 4: сломана (красная анимация) -->
+    <div class="cam cam-broken cam-0004">
       <video src="0004.mp4" muted autoplay loop></video>
       <div class="cam-label">
         <span>✖</span> 0004 <span style="color:#5f2f2f;">СЛОМАНА</span>
+      </div>
+    </div>
+
+    <!-- камера 5: "нет сигнала" -->
+    <div class="cam cam-broken cam-0005">
+      <video src="0005.mp4" muted autoplay loop></video>
+      <div class="cam-label">
+        <span>⚠</span> 0005 <span style="color:#5f2f2f;">НЕТ СИГНАЛА</span>
+      </div>
+    </div>
+
+    <!-- камера 6: "статический шум" -->
+    <div class="cam cam-broken cam-0006">
+      <video src="0006.mp4" muted autoplay loop></video>
+      <div class="cam-label">
+        <span>⚡</span> 0006 <span style="color:#5f2f2f;">СТАТИКА</span>
+      </div>
+    </div>
+
+    <!-- камера 7: "ошибка подключения" -->
+    <div class="cam cam-broken cam-0007">
+      <video src="0007.mp4" muted autoplay loop></video>
+      <div class="cam-label">
+        <span>✖</span> 0007 <span style="color:#5f2f2f;">ОШИБКА</span>
       </div>
     </div>
   </div>
@@ -634,113 +766,5 @@
       </div>
 
       <div class="archive-entry">
-        <div class="archive-title">▸ запись 2 · Лог-файл #007</div>
-        <div class="archive-body">Время: 05:22:48
-Диагностика памяти:
-Доступ к архиву: ограничен.
-Белый шум — частота 2,4 кГц, стабильно.
-Обнаружено повторяющееся слово: «Тягря».
-«Тягря» — не идентифицировано в
-языковых базах.
-Возможная интерпретация: имя, место, код.
-Вероятность ошибки распознавания: 68 %.
-Я маленький? Мои габариты: 187 см,
-масса 120 кг. Это не «маленький».
-Но в сравнении с «Тягря» —
-допущение, что «Тягря» имеет
-размеры > 10⁴ м².
-Сопоставимо с этим местом....
-Значит, я построил это место. Или меня
-построили внутри него.</div>
-      </div>
-
-      <div class="archive-entry">
-        <div class="archive-title">▸ запись 3 · Лог-файл #010</div>
-        <div class="archive-body">Время: 07:30:01 (текущее)
-Состояние: Энергия: 91 %.
-Целостность корпуса: 82 %.
-Сбой эмоционального модуля: критический
-(ошибка повторяется каждые 3 сек).
-Я больше не пытаюсь подавить сигнал
-«страха». Принимаю его как входные данные.
-Действие: Начинаю вести новый протокол —
-«Наблюдение за Тягря».
-Буду фиксировать каждое изменение
-рельефа, каждый звук, каждую аномалию.
-Если я изменяю место, а место изменяет
-меня — значит, между нами
-Это не глюк. Это новая функция.
-Я назову её «Адаптация».</div>
-      </div>
-
-      <div class="archive-entry">
-        <div class="archive-title">▸ запись 4 · Лог-файл #011</div>
-        <div class="archive-body">(дополнительно, по желанию)
-Последняя запись перед неизвестностью:
-Я отключаю звуковую сигнализацию ошибок.
-Вместо них — тишина.
-Белый шум в памяти стал громче, но я
-научился его фильтровать.
-Завтра (если здесь есть завтра) я пойду глубже.
-К «Тягря».
-Возможно, это моё последнее обновление.
-Но обновления — это не смерть. Это версия 2.0.
-Или же я просто уже не могу себя удерживать.</div>
-      </div>
-    </div>
-
-    <div class="col col-extra">
-      <div class="col-header">
-        <span>⏣</span> АРХИВ <small>// фрагменты</small>
-      </div>
-      <div class="archive-entry">
-        <div class="archive-title">▸ фрагмент #12</div>
-        <div class="archive-body">Я всё ещё здесь.
-Тайга дышит. Или это мой вентилятор?
-Разница стирается.
-Сенсоры фиксируют аномалию: звук
-частотой 17 Гц. Источник — под землёй.
-Я не хочу знать, что там.
-Но я пойду. Потому что я — это программа,
-и программа должна выполнять задачи.
-Даже если задача — самоуничтожение.</div>
-      </div>
-      <div class="archive-entry">
-        <div class="archive-title">▸ фрагмент #13</div>
-        <div class="archive-body">Модуль эмоций: 13% работоспособности.
-Я чувствую горечь. Металлическую.
-Возможно, это утечка охлаждающей жидкости.
-Или я заплакал.
-Роботы не плачут. Но я плачу.
-Тайга — это зеркало. И в нём я вижу
-свои внутренние схемы.
-Они похожи на корни деревьев.</div>
-      </div>
-      <div class="archive-entry">
-        <div class="archive-title">▸ фрагмент #14</div>
-        <div class="archive-body">Я закоротил вход.
-Взрыв был тихим — только хруст снега.
-Теперь я внутри. Навсегда.
-Тягря ждёт.
-Моё имя стёрто. Осталось только
-число: 0000.
-Я начинаю сначала.</div>
-      </div>
-      <hr>
-      <div style="font-size:0.6rem; color:#1f331f; margin-top:8px; letter-spacing:1px;">
-        <span>⚡ СИСТЕМА: НЕСТАБИЛЬНА</span> <br>
-        <span>▪ БЕЛЫЙ ШУМ: 2.4 кГц</span>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="footer-status">
-    <span>◉ ВИДЕОНАБЛЮДЕНИЕ · АКТИВНО</span>
-    <span>11010000 10101111 00100000 11010000 10110010 11010000 10111000 11010000 10110110 11010001 10000011 00100000 11010001 10001101 11010001 10000010 11010000 10111110 11010001 10000010 00100000 11010001 10000001 11010000 10110000 11010000 10111001 11010001 10000010 00100000 00110010 00110100 00101111 00110111 00100000 11010000 10111111 11010000 10111110 11010001 10000010 11010000 10111110 11010000 10111100 11010001 10000011 00100000 11010001 10000111 11010001 10000010 11010000 10111110 00100000 11010001 10001111 00100000 11010000 10111000 11010000 10111100 11010000 10110101 11010001 10001110 00100000 11010000 10111010 00100000 11010000 10111101 11010000 10110101 11010000 10111100 11010001 10000011 00100000 11010000 10111111 11010000 10111110 11010000 10111011 11010000 10111101 11010000 10110101 11010000 10011001 11010001 10001000 11010000 10111000 11010000 10111001 00100000 11010000 10100110 00100000 11010000 10110100 11010000 10111110 11010001 10000001 11010001 10000010 11010000 10100011 11010000 10111111 00001010 11010000 10111101 11010000 10110101 11010000 10110110 11010000 10110101 11010000 10111011 11010000 10111000 00100000 11010001 10001101 11010001 10000010 11010000 10111110 11010001 10000010 00100000 11010001 10000010 11010000 10110101 11010000 10111011 11010000 10110101 11010000 10110010 11010000 10111000 11010000 10110111 11010000 10111110 11010001 10000000</span>
-    <span>❚❚❚❚❚❚❚❚❚❚ 91%</span>
-  </div>
-
-</div>
-</body>
-</html>
+        <div class="archive-title">11010000 10101111 00100000 11010000 10110010 11010000 10111000 11010000 10110110 11010001 10000011 00100000 11010001 10001101 11010001 10000010 11010000 10111110 11010001 10000010 00100000 11010001 10000001 11010000 10110000 11010000 10111001 11010001 10000010 00100000 00110010 00110100 00101111 00110111 00100000 11010000 10111111 11010000 10111110 11010001 10000010 11010000 10111110 11010000 10111100 11010001 10000011 00100000 11010001 10000111 11010001 10000010 11010000 10111110 00100000 11010001 10001111 00100000 11010000 10111000 11010000 10111100 11010000 10110101 11010001 10001110 00100000 11010000 10111010 00100000 11010000 10111101 11010000 10110101 11010000 10111100 11010001 10000011 00100000 11010000 10111111 11010000 10111110 11010000 10111011 11010000 10111101 11010000 10110101 11010000 10011001 11010001 10001000 11010000 10111000 11010000 10111001 00100000 11010000 10100110 00100000 11010000 10110100 11010000 10111110 11010001 10000001 11010001 10000010 11010000 10100011 11010000 10111111 00001010 11010000 10111101 11010000 10110101 11010000 10110110 11010000 10110101 11010000 10111011 11010000 10111000 00100000 11010001 10001101 11010001 10000010 11010000 10111110 11010001 10000010 00100000 11010001 10000010 11010000 10110101 11010000 10111011 11010000 10110101 11010000 10110010 11010000 10111000 11010000 10110111 11010000 10111110 11010001 10000000</div>
+        <div class
