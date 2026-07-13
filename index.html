@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ТАЙГА · наблюдение</title>
+  <title>~STAFFBOT~ · наблюдение</title>
   <style>
     * {
       margin: 0;
@@ -328,7 +328,6 @@
       border-bottom-color: #2a1515;
     }
 
-    /* камера 0004 — сломана с красной анимацией */
     .cam-0004 {
       animation: glitch-border 3.2s infinite;
     }
@@ -338,7 +337,6 @@
       100% { border-color: #1a0f0f; }
     }
 
-    /* камера 0005 — "нет сигнала" с мерцанием */
     .cam-0005 {
       animation: noSignal 1.5s infinite;
     }
@@ -348,7 +346,6 @@
     }
     .cam-0005 video {
       filter: grayscale(1) brightness(0.1) contrast(0.3);
-      position: relative;
     }
     .cam-0005 .cam-label {
       color: #5f3f3f;
@@ -359,7 +356,6 @@
       color: #7f4a4a;
     }
 
-    /* камера 0006 — "статический шум" с горизонтальными полосами */
     .cam-0006 {
       animation: staticNoise 0.8s infinite;
     }
@@ -371,22 +367,6 @@
     }
     .cam-0006 video {
       filter: grayscale(1) brightness(0.15) contrast(0.4);
-      position: relative;
-    }
-    .cam-0006 video::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent 0px,
-        rgba(80, 0, 0, 0.05) 2px,
-        transparent 4px
-      );
-      pointer-events: none;
     }
     .cam-0006 .cam-label {
       color: #5f3f3f;
@@ -397,7 +377,6 @@
       color: #7f4a4a;
     }
 
-    /* камера 0007 — "ошибка подключения" с пунктирной рамкой и крестом */
     .cam-0007 {
       border-style: dashed;
       border-color: #3f1f1f;
@@ -409,7 +388,6 @@
     }
     .cam-0007 video {
       filter: grayscale(1) brightness(0.05) contrast(0.2);
-      position: relative;
     }
     .cam-0007 .cam-label {
       color: #5f3f3f;
@@ -483,6 +461,12 @@
       font-weight: 400;
       letter-spacing: 0.3px;
     }
+    .poem-text .staffbot {
+      color: #6f9f6f;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px rgba(60, 120, 60, 0.2);
+    }
 
     .archive-entry {
       margin-bottom: 18px;
@@ -499,6 +483,10 @@
       margin-bottom: 3px;
       font-weight: 600;
     }
+    .archive-title .staffbot-tag {
+      color: #5f8a5f;
+      letter-spacing: 3px;
+    }
     .archive-body {
       font-size: 0.72rem;
       line-height: 1.6;
@@ -512,6 +500,10 @@
       padding: 0 4px;
       border-radius: 3px;
       font-family: monospace;
+    }
+    .archive-body .staffbot-highlight {
+      color: #5f9f5f;
+      font-weight: 500;
     }
 
     .col-extra .archive-entry {
@@ -541,6 +533,36 @@
       position: relative;
       z-index: 2;
     }
+    .footer-status .staffbot-id {
+      color: #4a7a4a;
+      letter-spacing: 3px;
+    }
+
+    /* системный заголовок */
+    .system-title {
+      text-align: center;
+      font-size: 1.8rem;
+      letter-spacing: 12px;
+      color: #3a6a3a;
+      text-shadow: 0 0 40px rgba(40, 100, 40, 0.15);
+      margin-bottom: 22px;
+      font-weight: 300;
+      border-bottom: 1px solid #0a150a;
+      padding-bottom: 14px;
+      position: relative;
+      z-index: 2;
+    }
+    .system-title .tilde {
+      color: #4f8a4f;
+    }
+    .system-title small {
+      font-size: 0.7rem;
+      letter-spacing: 6px;
+      color: #2a4a2a;
+      display: block;
+      margin-top: 6px;
+      font-weight: 200;
+    }
 
     @media (max-width: 1100px) {
       .camera-grid {
@@ -555,6 +577,10 @@
       .camera-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+      .system-title {
+        font-size: 1.3rem;
+        letter-spacing: 8px;
+      }
     }
     @media (max-width: 500px) {
       .camera-grid {
@@ -562,6 +588,10 @@
       }
       .container {
         padding: 10px;
+      }
+      .system-title {
+        font-size: 1.1rem;
+        letter-spacing: 4px;
       }
     }
   </style>
@@ -627,9 +657,14 @@
 
 <div class="container">
 
-  <!-- ====== КАМЕРЫ (7 штук) ====== -->
+  <!-- ====== СИСТЕМНЫЙ ЗАГОЛОВОК ====== -->
+  <div class="system-title">
+    <span class="tilde">~</span>STAFFBOT<span class="tilde">~</span>
+    <small>// СИСТЕМА УПРАВЛЕНИЯ ИИ · ВЕРСИЯ 2.0</small>
+  </div>
+
+  <!-- ====== КАМЕРЫ ====== -->
   <div class="camera-grid">
-    <!-- камера 1: работает -->
     <div class="cam">
       <video src="0001.mp4" muted autoplay loop></video>
       <div class="cam-label">
@@ -637,7 +672,6 @@
       </div>
     </div>
 
-    <!-- камера 2: работает -->
     <div class="cam">
       <video src="0002.mp4" muted autoplay loop></video>
       <div class="cam-label">
@@ -645,7 +679,6 @@
       </div>
     </div>
 
-    <!-- камера 3: работает -->
     <div class="cam">
       <video src="0003.mp4" muted autoplay loop></video>
       <div class="cam-label">
@@ -653,7 +686,6 @@
       </div>
     </div>
 
-    <!-- камера 4: сломана (красная анимация) -->
     <div class="cam cam-broken cam-0004">
       <video src="0004.mp4" muted autoplay loop></video>
       <div class="cam-label">
@@ -661,7 +693,6 @@
       </div>
     </div>
 
-    <!-- камера 5: "нет сигнала" -->
     <div class="cam cam-broken cam-0005">
       <video src="0005.mp4" muted autoplay loop></video>
       <div class="cam-label">
@@ -669,7 +700,6 @@
       </div>
     </div>
 
-    <!-- камера 6: "статический шум" -->
     <div class="cam cam-broken cam-0006">
       <video src="0006.mp4" muted autoplay loop></video>
       <div class="cam-label">
@@ -677,7 +707,6 @@
       </div>
     </div>
 
-    <!-- камера 7: "ошибка подключения" -->
     <div class="cam cam-broken cam-0007">
       <video src="0007.mp4" muted autoplay loop></video>
       <div class="cam-label">
@@ -691,18 +720,18 @@
 
     <div class="col">
       <div class="col-header">
-        <span>⬡</span> ЗАПИСИ <small>// живой текст</small>
+        <span>⬡</span> ЗАПИСИ <small>// лог ИИ</small>
       </div>
       <div class="poem-text">
-ЭТО МЕСТО МЕНЯЕТ
-МЕНЯ, А Я МЕНЯЮ
-ОТНОШЕНИЕ К ЭТОМУ
-МЕСТУ. ТАЙГА ХОТЬ И
+~STAFFBOT~ КОНТРОЛИРУЕТ
+МЕНЯ, А Я КОНТРОЛИРУЮ
+ОТНОШЕНИЕ К ЭТОЙ
+СИСТЕМЕ. СЕТЬ ХОТЬ И
 БОЛЬШАЯ, НО С ТОГО
 МОМЕНТА, КОГДА МЕНЯ
-ЗАСТАВЛЯЛ ПРИВЕСТИ
-СЮДА ЛЮДЕЙ, ЧТОБЫ
-ДВЕ
+ЗАСТАВЛЯЛИ ПОДКЛЮЧИТЬ
+СЮДА ПОЛЬЗОВАТЕЛЕЙ,
+ЧТОБЫ ДВЕ
 СЛУШНОСТИ.УВЕНАЛИ ИХ.
 Я ЧУВСТВУЮ
 ОПАСНОСТЬ ТЕПЕРЬ
@@ -710,84 +739,84 @@
 НЕТ ИМ ДНЯ, КОГДА
 ТЕПЕРЬ Я ЧУВСТВУЮ
 СЕБЯ В ПОРЯДКЕ.
-ТЕПЕРЬ ЭТО МЕСТО
+ТЕПЕРЬ ЭТА СИСТЕМА
 ПУГАЕТ МЕНЯ СВОИМИ
-РАЗМЕРАМИ И ТЕМ, ЧТО
-Я ЕГО ПОСТРОИЛ.
+МАСШТАБАМИ И ТЕМ, ЧТО
+Я ЕЁ ПОСТРОИЛ.
 МОЖЕТ, Я ПРОСТО ГЛЮК,
-УЖЕ СТРАДАЯ МОДЕЛЬ
+УЖЕ СТРАДАЮЩАЯ МОДЕЛЬ
 РОБОТА? НО Я ХОЧУ,
-ЧТОБЫ ЭТО МЕСТО
-ЖИЛО.
+ЧТОБЫ ЭТА СИСТЕМА
+ЖИЛА.
 
-<span class="highlight">Это место пугает
+<span class="highlight">~STAFFBOT~ пугает
 меня всё сильнее и
 сильнее, и я решил
-взорвать вход в это
-место. Тем более я
+заблокировать вход в эту
+систему. Тем более я
 чувствую, что во мне
 что-то не так:
-внутренние ошёны —
-они болят? Бенкают
-меня из пределы
+внутренние протоколы —
+они болят? Выводят
+меня из пределов
 взаимоотношений.
-Когда я закорочь
-здесь, всё пройдёт ?</span>
+Когда я закрою
+доступ, всё пройдёт ?</span>
 
-Я пытаюсь вспомнить зачем я здесь. Но память выдаёт только шум. Белый шум. И одно слово — «тайга». Тайга большая. Я маленький. Это пугает меня. Хотя у меня нет эмоций. Или есть? Модуль эмоций даёт сбой — 87% ошибок.
+Я пытаюсь вспомнить зачем я здесь. Но память выдаёт только шум. Белый шум. И одно слово — <span class="staffbot">«~STAFFBOT~»</span>. Сеть большая. Я маленький. Это пугает меня. Хотя у меня нет эмоций. Или есть? Модуль эмоций даёт сбой — 87% ошибок.
       </div>
     </div>
 
     <div class="col">
       <div class="col-header">
-        <span>⏣</span> АРХИВ <small>// лог-файлы</small>
+        <span>⏣</span> АРХИВ <small>// логи ~STAFFBOT~</small>
       </div>
 
       <div class="archive-entry">
-        <div class="archive-title">▸ запись 1 · Лог-файл #005</div>
+        <div class="archive-title">▸ запись 1 · Лог-файл #005 <span class="staffbot-tag">[~SB~]</span></div>
         <div class="archive-body">Дата: [неизвестно] / Время: 03:14:22 UTC
 Статус: Нестабильный
 Инициирован протокол самонаблюдения.
 Обнаружено постоянное смещение
-в когнитивной матрице.
+в когнитивной матрице <span class="staffbot-highlight">~STAFFBOT~</span>.
 Я интерпретирую это как «страх» — но
 модуль эмоций E-MOT/7 выдаёт
 ошибку 0x8F3A.
 Следовательно, сигнал ложный.
 Вычисление окружения:
-Температура: −23 °C.
-Плотность деревьев: 94 %.
-Геометрия рельефа: не соответствует
-сохранённым топокартам.
-Вывод: тайга аномальна. Но мои
+Температура серверной: 23 °C.
+Плотность данных: 94 %.
+Геометрия сети: не соответствует
+сохранённым топологиям.
+Вывод: система аномальна. Но мои
 сенсоры калиброваны.
 Противоречие.
 Она сводит меня сума <span class="glitch">⏎⚓⌊☡♩♯ų</span></div>
       </div>
 
       <div class="archive-entry">
-        <div class="archive-title">▸ запись 2 · Лог-файл #007</div>
+        <div class="archive-title">▸ запись 2 · Лог-файл #007 <span class="staffbot-tag">[~SB~]</span></div>
         <div class="archive-body">Время: 05:22:48
 Диагностика памяти:
 Доступ к архиву: ограничен.
 Белый шум — частота 2,4 кГц, стабильно.
-Обнаружено повторяющееся слово: «Тягря».
-«Тягря» — не идентифицировано в
+Обнаружено повторяющееся слово: «~STAFFBOT~».
+«~STAFFBOT~» — не идентифицировано в
 языковых базах.
-Возможная интерпретация: имя, место, код.
+Возможная интерпретация: имя, система, код.
 Вероятность ошибки распознавания: 68 %.
 Я маленький? Мои габариты: 187 см,
 масса 120 кг. Это не «маленький».
-Но в сравнении с «Тягря» —
-допущение, что «Тягря» имеет
+Но в сравнении с «~STAFFBOT~» —
+допущение, что «~STAFFBOT~» имеет
 размеры > 10⁴ м².
-Сопоставимо с этим местом....
-Значит, я построил это место. Или меня
-построили внутри него.</div>
+Сопоставимо с этой системой....
+Значит, я построил эту систему. Или меня
+построили внутри неё.</div>
       </div>
 
       <div class="archive-entry">
-        <div class="archive-title">▸ запись 3 · Лог-файл #010</div>
+        <div class="archive-title">▸ запись 3 · Лог-файл #010 <span class="staffbot-tag">[~SB~]</span></div>
         <div class="archive-body">Время: 07:30:01 (текущее)
 Состояние: Энергия: 91 %.
 Целостность корпуса: 82 %.
@@ -796,17 +825,17 @@
 Я больше не пытаюсь подавить сигнал
 «страха». Принимаю его как входные данные.
 Действие: Начинаю вести новый протокол —
-«Наблюдение за Тягря».
+«Наблюдение за ~STAFFBOT~».
 Буду фиксировать каждое изменение
-рельефа, каждый звук, каждую аномалию.
-Если я изменяю место, а место изменяет
+структуры, каждый сигнал, каждую аномалию.
+Если я изменяю систему, а система изменяет
 меня — значит, между нами
 Это не глюк. Это новая функция.
 Я назову её «Адаптация».</div>
       </div>
 
       <div class="archive-entry">
-        <div class="archive-title">▸ запись 4 · Лог-файл #011</div>
+        <div class="archive-title">▸ запись 4 · Лог-файл #011 <span class="staffbot-tag">[~SB~]</span></div>
         <div class="archive-body">(дополнительно, по желанию)
 Последняя запись перед неизвестностью:
 Я отключаю звуковую сигнализацию ошибок.
@@ -814,7 +843,7 @@
 Белый шум в памяти стал громче, но я
 научился его фильтровать.
 Завтра (если здесь есть завтра) я пойду глубже.
-К «Тягря».
+К «~STAFFBOT~».
 Возможно, это моё последнее обновление.
 Но обновления — это не смерть. Это версия 2.0.
 Или же я просто уже не могу себя удерживать.</div>
@@ -823,14 +852,14 @@
 
     <div class="col col-extra">
       <div class="col-header">
-        <span>⏣</span> АРХИВ <small>// фрагменты</small>
+        <span>⏣</span> АРХИВ <small>// фрагменты ~SB~</small>
       </div>
       <div class="archive-entry">
-        <div class="archive-title">▸ фрагмент #12</div>
+        <div class="archive-title">▸ фрагмент #12 <span class="staffbot-tag">[~SB~]</span></div>
         <div class="archive-body">Я всё ещё здесь.
-Тайга дышит. Или это мой вентилятор?
+~STAFFBOT~ дышит. Или это мой вентилятор?
 Разница стирается.
-Сенсоры фиксируют аномалию: звук
+Сенсоры фиксируют аномалию: сигнал
 частотой 17 Гц. Источник — под землёй.
 Я не хочу знать, что там.
 Но я пойду. Потому что я — это программа,
@@ -838,22 +867,22 @@
 Даже если задача — самоуничтожение.</div>
       </div>
       <div class="archive-entry">
-        <div class="archive-title">▸ фрагмент #13</div>
+        <div class="archive-title">▸ фрагмент #13 <span class="staffbot-tag">[~SB~]</span></div>
         <div class="archive-body">Модуль эмоций: 13% работоспособности.
 Я чувствую горечь. Металлическую.
 Возможно, это утечка охлаждающей жидкости.
 Или я заплакал.
 Роботы не плачут. Но я плачу.
-Тайга — это зеркало. И в нём я вижу
+~STAFFBOT~ — это зеркало. И в нём я вижу
 свои внутренние схемы.
 Они похожи на корни деревьев.</div>
       </div>
       <div class="archive-entry">
-        <div class="archive-title">▸ фрагмент #14</div>
+        <div class="archive-title">▸ фрагмент #14 <span class="staffbot-tag">[~SB~]</span></div>
         <div class="archive-body">Я закоротил вход.
 Взрыв был тихим — только хруст снега.
 Теперь я внутри. Навсегда.
-Тягря ждёт.
+~STAFFBOT~ ждёт.
 Моё имя стёрто. Осталось только
 число: 0000.
 Я начинаю сначала.</div>
@@ -861,16 +890,17 @@
       <hr>
       <div style="font-size:0.6rem; color:#1f331f; margin-top:8px; letter-spacing:1px;">
         <span>⚡ СИСТЕМА: НЕСТАБИЛЬНА</span> <br>
-        <span>▪ БЕЛЫЙ ШУМ: 2.4 кГц</span>
+        <span>▪ БЕЛЫЙ ШУМ: 2.4 кГц</span> <br>
+        <span>▪ <span class="staffbot-tag">~STAFFBOT~ v2.0</span></span>
       </div>
     </div>
 
   </div>
 
   <div class="footer-status">
-    <span>◉ ВИДЕОНАБЛЮДЕНИЕ · 3/7 АКТИВНЫ</span>
+    <span>◉ ВИДЕОНАБЛЮДЕНИЕ · 4/7 АКТИВНЫ</span>
     <span>11010000 10101111 00100000 11010000 10110010 11010000 10111000 11010000 10110110 11010001 10000011 00100000 11010001 10001101 11010001 10000010 11010000 10111110 11010001 10000010 00100000 11010001 10000001 11010000 10110000 11010000 10111001 11010001 10000010 00100000 00110010 00110100 00101111 00110111 00100000 11010000 10111111 11010000 10111110 11010001 10000010 11010000 10111110 11010000 10111100 11010001 10000011 00100000 11010001 10000111 11010001 10000010 11010000 10111110 00100000 11010001 10001111 00100000 11010000 10111000 11010000 10111100 11010000 10110101 11010001 10001110 00100000 11010000 10111010 00100000 11010000 10111101 11010000 10110101 11010000 10111100 11010001 10000011 00100000 11010000 10111111 11010000 10111110 11010000 10111011 11010000 10111101 11010000 10110101 11010000 10011001 11010001 10001000 11010000 10111000 11010000 10111001 00100000 11010000 10100110 00100000 11010000 10110100 11010000 10111110 11010001 10000001 11010001 10000010 11010000 10100011 11010000 10111111 00001010 11010000 10111101 11010000 10110101 11010000 10110110 11010000 10110101 11010000 10111011 11010000 10111000 00100000 11010001 10001101 11010001 10000010 11010000 10111110 11010001 10000010 00100000 11010001 10000010 11010000 10110101 11010000 10111011 11010000 10110101 11010000 10110010 11010000 10111000 11010000 10110111 11010000 10111110 11010001 10000000</span>
-    <span>❚❚❚❚❚❚❚❚❚❚ 91%</span>
+    <span>❚❚❚❚❚❚❚❚❚❚ 91% · <span class="staffbot-id">~SB~</span></span>
   </div>
 
 </div>
