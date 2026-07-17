@@ -564,6 +564,18 @@
       font-weight: 200;
     }
 
+    /* ===== АУДИОПЛЕЕР (скрытый) ===== */
+    #bg-audio {
+      position: fixed;
+      bottom: -100px;
+      left: -100px;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+
     @media (max-width: 1100px) {
       .camera-grid {
         grid-template-columns: repeat(4, 1fr);
@@ -597,6 +609,9 @@
   </style>
 </head>
 <body>
+
+  <!-- ===== СКРЫТЫЙ АУДИОПЛЕЕР ===== -->
+  <audio id="bg-audio" src="fon.mp3" autoplay loop></audio>
 
   <!-- ===== ЛАГИ ПОД КОНТЕНТОМ ===== -->
   <div class="glitch-background">
