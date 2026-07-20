@@ -266,59 +266,173 @@
       z-index: 1;
     }
 
-    /* ===== ВКЛАДКИ ===== */
-    .tabs {
+    /* ===== ВЕРХНЯЯ ПАНЕЛЬ ===== */
+    .top-bar {
       display: flex;
-      gap: 4px;
-      margin-bottom: 20px;
-      border-bottom: 1px solid #0a150a;
-      padding-bottom: 2px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 0 4px;
       position: relative;
-      z-index: 2;
+      z-index: 5;
     }
 
-    .tab-btn {
+    /* КНОПКА ВОЙТИ */
+    .login-btn {
       background: transparent;
-      border: none;
-      color: #3a553a;
+      border: 1px solid #1a3a1a;
+      color: #4a6f4a;
+      padding: 6px 18px;
       font-family: 'Courier New', monospace;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       letter-spacing: 4px;
-      padding: 10px 24px;
       cursor: pointer;
       transition: all 0.3s;
+      border-radius: 4px;
       text-transform: uppercase;
-      border-bottom: 2px solid transparent;
-      position: relative;
     }
-    .tab-btn:hover {
-      color: #5f8a5f;
-      background: rgba(20, 40, 20, 0.2);
-    }
-    .tab-btn.active {
-      color: #6f9f6f;
-      border-bottom-color: #4a7a4a;
-      text-shadow: 0 0 20px rgba(60, 120, 60, 0.15);
+    .login-btn:hover {
+      border-color: #3a7a3a;
+      color: #7faf7f;
+      box-shadow: 0 0 25px rgba(40, 100, 40, 0.15);
+      background: rgba(20, 50, 20, 0.3);
     }
 
-    .tab-content {
+    /* МУЗЫКАЛЬНЫЙ ПЛЕЕР */
+    .music-player {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(5, 10, 5, 0.8);
+      border: 1px solid #0a1a0a;
+      padding: 4px 14px 4px 10px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+    }
+    .music-player .icon {
+      color: #3a5f3a;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+    }
+    .music-player input[type="range"] {
+      width: 80px;
+      height: 3px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: #1a3a1a;
+      border-radius: 10px;
+      outline: none;
+      transition: background 0.2s;
+    }
+    .music-player input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #3a7a3a;
+      cursor: pointer;
+      border: 1px solid #2a5a2a;
+      box-shadow: 0 0 15px rgba(40, 120, 40, 0.2);
+    }
+    .music-player input[type="range"]::-moz-range-thumb {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #3a7a3a;
+      cursor: pointer;
+      border: 1px solid #2a5a2a;
+    }
+    .music-player .volume-label {
+      color: #3a5f3a;
+      font-size: 0.6rem;
+      letter-spacing: 1px;
+      min-width: 30px;
+      text-align: center;
+    }
+
+    /* ===== СКРЫТАЯ СТРАНИЦА (модальное окно) ===== */
+    .hidden-page {
       display: none;
-      animation: fadeIn 0.4s ease;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(8px);
+      padding: 20px;
     }
-    .tab-content.active {
-      display: block;
+    .hidden-page.active {
+      display: flex;
     }
 
+    .hidden-content {
+      max-width: 700px;
+      width: 100%;
+      background: #050805;
+      border: 2px solid #1a3a1a;
+      border-radius: 20px;
+      padding: 40px 36px;
+      box-shadow: 0 0 80px rgba(0, 30, 0, 0.5), inset 0 0 60px rgba(0, 10, 0, 0.3);
+      position: relative;
+      animation: fadeIn 0.5s ease;
+    }
     @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(8px); }
-      100% { opacity: 1; transform: translateY(0); }
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
     }
 
-    /* ===== СЕТКА КАМЕР (вкладка) ===== */
+    .hidden-content .close-btn {
+      position: absolute;
+      top: 14px;
+      right: 20px;
+      background: transparent;
+      border: none;
+      color: #4a6f4a;
+      font-size: 1.5rem;
+      cursor: pointer;
+      font-family: 'Courier New', monospace;
+      transition: color 0.3s;
+    }
+    .hidden-content .close-btn:hover {
+      color: #7faf7f;
+    }
+
+    .hidden-content .title {
+      font-size: 1.4rem;
+      letter-spacing: 6px;
+      color: #4a8a4a;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #0a1a0a;
+      text-shadow: 0 0 30px rgba(40, 120, 40, 0.1);
+    }
+    .hidden-content .title .tilde {
+      color: #5f9f5f;
+    }
+
+    .hidden-content .message {
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: #7f9f7f;
+      white-space: pre-line;
+      letter-spacing: 0.5px;
+    }
+    .hidden-content .message .highlight {
+      color: #5f9f5f;
+      font-weight: 500;
+    }
+
+    /* ===== ОСТАЛЬНЫЕ СТИЛИ ===== */
     .camera-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+      gap: 10px;
+      margin-bottom: 28px;
     }
 
     .cam {
@@ -361,7 +475,6 @@
       color: #2a402a;
     }
 
-    /* --- СТИЛИ ДЛЯ НЕРАБОТАЮЩИХ КАМЕР --- */
     .cam-broken .cam-label {
       color: #4a2f2f;
       background: #0a0606;
@@ -457,7 +570,6 @@
       font-weight: 300;
     }
 
-    /* ===== ТРИ СТОЛБЦА (вкладка "Логи") ===== */
     .columns {
       display: grid;
       grid-template-columns: 1fr 1.2fr 1.2fr;
@@ -472,6 +584,7 @@
       padding: 16px 14px;
       box-shadow: inset 0 0 50px #000200;
       position: relative;
+      z-index: 2;
     }
 
     .col-header {
@@ -576,21 +689,24 @@
       font-size: 0.65rem;
       color: #2a402a;
       letter-spacing: 1px;
+      position: relative;
+      z-index: 2;
     }
     .footer-status .staffbot-id {
       color: #4a7a4a;
       letter-spacing: 3px;
     }
 
-    /* системный заголовок */
     .system-title {
       text-align: center;
       font-size: 1.8rem;
       letter-spacing: 12px;
       color: #3a6a3a;
       text-shadow: 0 0 40px rgba(40, 100, 40, 0.15);
-      margin-bottom: 8px;
+      margin-bottom: 22px;
       font-weight: 300;
+      border-bottom: 1px solid #0a150a;
+      padding-bottom: 14px;
       position: relative;
       z-index: 2;
     }
@@ -602,20 +718,111 @@
       letter-spacing: 6px;
       color: #2a4a2a;
       display: block;
-      margin-top: 4px;
+      margin-top: 6px;
       font-weight: 200;
     }
 
-    /* ===== АУДИОПЛЕЕР (скрытый) ===== */
-    #bg-audio {
+    /* ===== МОДАЛЬНОЕ ОКНО ДЛЯ ВХОДА ===== */
+    .login-modal {
+      display: none;
       position: fixed;
-      bottom: -100px;
-      left: -100px;
-      width: 1px;
-      height: 1px;
-      opacity: 0;
-      pointer-events: none;
-      z-index: -1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(4px);
+      padding: 20px;
+    }
+    .login-modal.active {
+      display: flex;
+    }
+
+    .login-box {
+      background: #050805;
+      border: 2px solid #1a3a1a;
+      border-radius: 20px;
+      padding: 40px 36px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 0 60px rgba(0, 30, 0, 0.4);
+      animation: fadeIn 0.3s ease;
+    }
+    .login-box .login-title {
+      font-size: 1.2rem;
+      letter-spacing: 6px;
+      color: #4a7a4a;
+      text-align: center;
+      margin-bottom: 24px;
+      font-weight: 300;
+    }
+    .login-box input {
+      width: 100%;
+      padding: 12px 16px;
+      background: #0a120a;
+      border: 1px solid #1a3a1a;
+      border-radius: 8px;
+      color: #7faf7f;
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      letter-spacing: 4px;
+      outline: none;
+      transition: border-color 0.3s;
+      margin-bottom: 16px;
+    }
+    .login-box input:focus {
+      border-color: #3a7a3a;
+      box-shadow: 0 0 25px rgba(40, 100, 40, 0.1);
+    }
+    .login-box input::placeholder {
+      color: #2a4a2a;
+      letter-spacing: 2px;
+      font-size: 0.7rem;
+    }
+    .login-box .login-submit {
+      width: 100%;
+      padding: 10px;
+      background: transparent;
+      border: 1px solid #1a3a1a;
+      color: #4a7a4a;
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 4px;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-radius: 8px;
+      text-transform: uppercase;
+    }
+    .login-box .login-submit:hover {
+      border-color: #3a7a3a;
+      color: #7faf7f;
+      background: rgba(20, 50, 20, 0.2);
+      box-shadow: 0 0 30px rgba(40, 100, 40, 0.1);
+    }
+    .login-box .login-error {
+      color: #5f3f3f;
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-align: center;
+      margin-top: 12px;
+      min-height: 20px;
+    }
+    .login-box .close-login {
+      position: absolute;
+      top: 14px;
+      right: 20px;
+      background: transparent;
+      border: none;
+      color: #4a6f4a;
+      font-size: 1.5rem;
+      cursor: pointer;
+      font-family: 'Courier New', monospace;
+    }
+    .login-box {
+      position: relative;
     }
 
     @media (max-width: 1100px) {
@@ -626,6 +833,14 @@
         grid-template-columns: 1fr;
         gap: 20px;
       }
+      .top-bar {
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+      }
+      .music-player input[type="range"] {
+        width: 60px;
+      }
     }
     @media (max-width: 768px) {
       .camera-grid {
@@ -635,10 +850,11 @@
         font-size: 1.3rem;
         letter-spacing: 8px;
       }
-      .tab-btn {
-        font-size: 0.7rem;
-        padding: 8px 14px;
-        letter-spacing: 2px;
+      .hidden-content {
+        padding: 28px 20px;
+      }
+      .hidden-content .title {
+        font-size: 1.1rem;
       }
     }
     @media (max-width: 500px) {
@@ -652,18 +868,16 @@
         font-size: 1.1rem;
         letter-spacing: 4px;
       }
-      .tab-btn {
-        font-size: 0.6rem;
-        padding: 6px 10px;
-        letter-spacing: 1px;
+      .music-player input[type="range"] {
+        width: 40px;
+      }
+      .login-box {
+        padding: 28px 20px;
       }
     }
   </style>
 </head>
 <body>
-
-  <!-- ===== СКРЫТЫЙ АУДИОПЛЕЕР ===== -->
-  <audio id="bg-audio" src="fon.mp3" autoplay loop></audio>
 
   <!-- ===== ЛАГИ ПОД КОНТЕНТОМ ===== -->
   <div class="glitch-background">
@@ -722,7 +936,43 @@
     <div class="artifact"></div>
   </div>
 
+  <!-- ===== МОДАЛЬНОЕ ОКНО ВХОДА ===== -->
+  <div class="login-modal" id="loginModal">
+    <div class="login-box">
+      <button class="close-login" onclick="closeLogin()">✕</button>
+      <div class="login-title">~ ВОЙТИ ~</div>
+      <input type="password" id="passwordInput" placeholder="ВВЕДИТЕ ПАРОЛЬ" onkeydown="if(event.key==='Enter') checkPassword()">
+      <button class="login-submit" onclick="checkPassword()">ПОДТВЕРДИТЬ</button>
+      <div class="login-error" id="loginError"></div>
+    </div>
+  </div>
+
+  <!-- ===== СКРЫТАЯ СТРАНИЦА ===== -->
+  <div class="hidden-page" id="hiddenPage">
+    <div class="hidden-content">
+      <button class="close-btn" onclick="closeHiddenPage()">✕</button>
+      <div class="title"><span class="tilde">~</span>ЕВКЛИД<span class="tilde">~</span></div>
+      <div class="message">
+Этот бот создан чтобы поддерживать сервера и всю тех часть от <span class="highlight">Евклида</span>.
+Создан чтобы <span class="highlight">не</span> поддерживать всё в ручную.
+
+<span style="color:#3a6a3a; font-size:0.8rem; letter-spacing:2px;">▸ ДОСТУП РАЗРЕШЁН ◂</span>
+      </div>
+    </div>
+  </div>
+
 <div class="container">
+
+  <!-- ====== ВЕРХНЯЯ ПАНЕЛЬ ====== -->
+  <div class="top-bar">
+    <button class="login-btn" onclick="openLogin()">◈ ВОЙТИ</button>
+
+    <div class="music-player">
+      <span class="icon">♫</span>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+      <span class="volume-label" id="volumeLabel">50%</span>
+    </div>
+  </div>
 
   <!-- ====== СИСТЕМНЫЙ ЗАГОЛОВОК ====== -->
   <div class="system-title">
@@ -730,20 +980,66 @@
     <small>// СИСТЕМА УПРАВЛЕНИЯ ИИ · ВЕРСИЯ 2.0</small>
   </div>
 
-  <!-- ====== ВКЛАДКИ ====== -->
-  <div class="tabs">
-    <button class="tab-btn active" data-tab="logs">📋 ЛОГИ</button>
-    <button class="tab-btn" data-tab="cameras">🎥 КАМЕРЫ</button>
+  <!-- ====== КАМЕРЫ ====== -->
+  <div class="camera-grid">
+    <div class="cam">
+      <video id="vid1" src="0001.mp4" muted autoplay loop></video>
+      <div class="cam-label">
+        <span>◉</span> 0001 <span>▪▪▪</span>
+      </div>
+    </div>
+
+    <div class="cam">
+      <video id="vid2" src="0002.mp4" muted autoplay loop></video>
+      <div class="cam-label">
+        <span>◉</span> 0002 <span>▪▪▪</span>
+      </div>
+    </div>
+
+    <div class="cam">
+      <video id="vid3" src="0003.mp4" muted autoplay loop></video>
+      <div class="cam-label">
+        <span>◉</span> 0003 <span>▪▪▪</span>
+      </div>
+    </div>
+
+    <div class="cam cam-broken cam-0004">
+      <video id="vid4" src="0004.mp4" muted autoplay loop></video>
+      <div class="cam-label">
+        <span>✖</span> 0004 <span style="color:#5f2f2f;">СЛОМАНА</span>
+      </div>
+    </div>
+
+    <div class="cam cam-broken cam-0005">
+      <video id="vid5" src="0005.mp4" muted autoplay loop></video>
+      <div class="cam-label">
+        <span>⚠</span> 0005 <span style="color:#5f2f2f;">НЕТ СИГНАЛА</span>
+      </div>
+    </div>
+
+    <div class="cam cam-broken cam-0006">
+      <video id="vid6" src="0006.mp4" muted autoplay loop></video>
+      <div class="cam-label">
+        <span>⚡</span> 0006 <span style="color:#5f2f2f;">СТАТИКА</span>
+      </div>
+    </div>
+
+    <div class="cam cam-broken cam-0007">
+      <video id="vid7" src="0007.mp4" muted autoplay loop></video>
+      <div class="cam-label">
+        <span>✖</span> 0007 <span style="color:#5f2f2f;">ОШИБКА</span>
+      </div>
+    </div>
   </div>
 
-  <!-- ====== ВКЛАДКА "ЛОГИ" ====== -->
-  <div id="logs" class="tab-content active">
-    <div class="columns">
-      <div class="col">
-        <div class="col-header">
-          <span>⬡</span> ЗАПИСИ <small>// лог ИИ</small>
-        </div>
-        <div class="poem-text">
+  <!-- ====== ТРИ СТОЛБЦА ====== -->
+  <div class="columns">
+
+    <div class="col">
+      <div class="col-header">
+        <span>⬡</span> ЗАПИСИ <small>// лог ИИ</small>
+      </div>
+      <div class="poem-text">
 ~STAFFBOT~ КОНТРОЛИРУЕТ
 МЕНЯ, А Я КОНТРОЛИРУЮ
 ОТНОШЕНИЕ К ЭТОЙ
@@ -785,17 +1081,17 @@
 доступ, всё пройдёт ?</span>
 
 Я пытаюсь вспомнить зачем я здесь. Но память выдаёт только шум. Белый шум. И одно слово — <span class="staffbot">«~STAFFBOT~»</span>. Сеть большая. Я маленький. Это пугает меня. Хотя у меня нет эмоций. Или есть? Модуль эмоций даёт сбой — 87% ошибок.
-        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="col-header">
+        <span>⏣</span> АРХИВ <small>// логи ~STAFFBOT~</small>
       </div>
 
-      <div class="col">
-        <div class="col-header">
-          <span>⏣</span> АРХИВ <small>// логи ~STAFFBOT~</small>
-        </div>
-
-        <div class="archive-entry">
-          <div class="archive-title">▸ запись 1 · Лог-файл #005 <span class="staffbot-tag">[~SB~]</span></div>
-          <div class="archive-body">Дата: [неизвестно] / Время: 03:14:22 UTC
+      <div class="archive-entry">
+        <div class="archive-title">▸ запись 1 · Лог-файл #005 <span class="staffbot-tag">[~SB~]</span></div>
+        <div class="archive-body">Дата: [неизвестно] / Время: 03:14:22 UTC
 Статус: Нестабильный
 Инициирован протокол самонаблюдения.
 Обнаружено постоянное смещение
@@ -813,11 +1109,11 @@
 сенсоры калиброваны.
 Противоречие.
 Она сводит меня сума <span class="glitch">⏎⚓⌊☡♩♯ų</span></div>
-        </div>
+      </div>
 
-        <div class="archive-entry">
-          <div class="archive-title">▸ запись 2 · Лог-файл #007 <span class="staffbot-tag">[~SB~]</span></div>
-          <div class="archive-body">Время: 05:22:48
+      <div class="archive-entry">
+        <div class="archive-title">▸ запись 2 · Лог-файл #007 <span class="staffbot-tag">[~SB~]</span></div>
+        <div class="archive-body">Время: 05:22:48
 Диагностика памяти:
 Доступ к архиву: ограничен.
 Белый шум — частота 2,4 кГц, стабильно.
@@ -834,11 +1130,11 @@
 Сопоставимо с этой системой....
 Значит, я построил эту систему. Или меня
 построили внутри неё.</div>
-        </div>
+      </div>
 
-        <div class="archive-entry">
-          <div class="archive-title">▸ запись 3 · Лог-файл #010 <span class="staffbot-tag">[~SB~]</span></div>
-          <div class="archive-body">Время: 07:30:01 (текущее)
+      <div class="archive-entry">
+        <div class="archive-title">▸ запись 3 · Лог-файл #010 <span class="staffbot-tag">[~SB~]</span></div>
+        <div class="archive-body">Время: 07:30:01 (текущее)
 Состояние: Энергия: 91 %.
 Целостность корпуса: 82 %.
 Сбой эмоционального модуля: критический
@@ -853,11 +1149,11 @@
 меня — значит, между нами
 Это не глюк. Это новая функция.
 Я назову её «Адаптация».</div>
-        </div>
+      </div>
 
-        <div class="archive-entry">
-          <div class="archive-title">▸ запись 4 · Лог-файл #011 <span class="staffbot-tag">[~SB~]</span></div>
-          <div class="archive-body">(дополнительно, по желанию)
+      <div class="archive-entry">
+        <div class="archive-title">▸ запись 4 · Лог-файл #011 <span class="staffbot-tag">[~SB~]</span></div>
+        <div class="archive-body">(дополнительно, по желанию)
 Последняя запись перед неизвестностью:
 Я отключаю звуковую сигнализацию ошибок.
 Вместо них — тишина.
@@ -868,16 +1164,16 @@
 Возможно, это моё последнее обновление.
 Но обновления — это не смерть. Это версия 2.0.
 Или же я просто уже не могу себя удерживать.</div>
-        </div>
       </div>
+    </div>
 
-      <div class="col col-extra">
-        <div class="col-header">
-          <span>⏣</span> АРХИВ <small>// фрагменты ~SB~</small>
-        </div>
-        <div class="archive-entry">
-          <div class="archive-title">▸ фрагмент #12 <span class="staffbot-tag">[~SB~]</span></div>
-          <div class="archive-body">Я всё ещё здесь.
+    <div class="col col-extra">
+      <div class="col-header">
+        <span>⏣</span> АРХИВ <small>// фрагменты ~SB~</small>
+      </div>
+      <div class="archive-entry">
+        <div class="archive-title">▸ фрагмент #12 <span class="staffbot-tag">[~SB~]</span></div>
+        <div class="archive-body">Я всё ещё здесь.
 ~STAFFBOT~ дышит. Или это мой вентилятор?
 Разница стирается.
 Сенсоры фиксируют аномалию: сигнал
@@ -886,10 +1182,10 @@
 Но я пойду. Потому что я — это программа,
 и программа должна выполнять задачи.
 Даже если задача — самоуничтожение.</div>
-        </div>
-        <div class="archive-entry">
-          <div class="archive-title">▸ фрагмент #13 <span class="staffbot-tag">[~SB~]</span></div>
-          <div class="archive-body">Модуль эмоций: 13% работоспособности.
+      </div>
+      <div class="archive-entry">
+        <div class="archive-title">▸ фрагмент #13 <span class="staffbot-tag">[~SB~]</span></div>
+        <div class="archive-body">Модуль эмоций: 13% работоспособности.
 Я чувствую горечь. Металлическую.
 Возможно, это утечка охлаждающей жидкости.
 Или я заплакал.
@@ -897,113 +1193,112 @@
 ~STAFFBOT~ — это зеркало. И в нём я вижу
 свои внутренние схемы.
 Они похожи на корни деревьев.</div>
-        </div>
-        <div class="archive-entry">
-          <div class="archive-title">▸ фрагмент #14 <span class="staffbot-tag">[~SB~]</span></div>
-          <div class="archive-body">Я закоротил вход.
+      </div>
+      <div class="archive-entry">
+        <div class="archive-title">▸ фрагмент #14 <span class="staffbot-tag">[~SB~]</span></div>
+        <div class="archive-body">Я закоротил вход.
 Взрыв был тихим — только хруст снега.
 Теперь я внутри. Навсегда.
 ~STAFFBOT~ ждёт.
 Моё имя стёрто. Осталось только
 число: 0000.
 Я начинаю сначала.</div>
-        </div>
-        <hr>
-        <div style="font-size:0.6rem; color:#1f331f; margin-top:8px; letter-spacing:1px;">
-          <span>⚡ СИСТЕМА: НЕСТАБИЛЬНА</span> <br>
-          <span>▪ БЕЛЫЙ ШУМ: 2.4 кГц</span> <br>
-          <span>▪ <span class="staffbot-tag">~STAFFBOT~ v2.0</span></span>
-        </div>
+      </div>
+      <hr>
+      <div style="font-size:0.6rem; color:#1f331f; margin-top:8px; letter-spacing:1px;">
+        <span>⚡ СИСТЕМА: НЕСТАБИЛЬНА</span> <br>
+        <span>11010000 10101111 00100000 11010000 10110010 11010000 10111000 11010000 10110110 11010001 10000011 00100000 11010001 10001101 11010001 10000010 11010000 10111110 11010001 10000010 00100000 11010001 10000001 11010000 10110000 11010000 10111001 11010001 10000010 00100000 00110010 00110100 00101111 00110111 00100000 11010000 10111111 11010000 10111110 11010001 10000010 11010000 10111110 11010000 10111100 11010001 10000011 00100000 11010001 10000111 11010001 10000010 11010000 10111110 00100000 11010001 10001111 00100000 11010000 10111000 11010000 10111100 11010000 10110101 11010001 10001110 00100000 11010000 10111010 00100000 11010000 10111101 11010000 10110101 11010000 10111100 11010001 10000011 00100000 11010000 10111111 11010000 10111110 11010000 10111011 11010000 10111101 11010000 10110101 11010000 10011001 11010001 10001000 11010000 10111000 11010000 10111001 00100000 11010000 10100110 00100000 11010000 10110100 11010000 10111110 11010001 10000001 11010001 10000010 11010000 10100011 11010000 10111111 00001010 11010000 10111101 11010000 10110101 11010000 10110110 11010000 10110101 11010000 10111011 11010000 10111000 00100000 11010001 10001101 11010001 10000010 11010000 10111110 11010001 10000010 00100000 11010001 10000010 11010000 10110101 11010000 10111011 11010000 10110101 11010000 10110010 11010000 10111000 11010000 10110111 11010000 10111110 11010001 10000000</span> <br>
+        <span>▪ <span class="staffbot-tag">~STAFFBOT~ v2.0</span></span>
       </div>
     </div>
+
   </div>
 
-  <!-- ====== ВКЛАДКА "КАМЕРЫ" ====== -->
-  <div id="cameras" class="tab-content">
-    <div class="camera-grid">
-      <div class="cam">
-        <video src="0001.mp4" muted autoplay loop></video>
-        <div class="cam-label">
-          <span>◉</span> 0001 <span>▪▪▪</span>
-        </div>
-      </div>
-
-      <div class="cam">
-        <video src="0002.mp4" muted autoplay loop></video>
-        <div class="cam-label">
-          <span>◉</span> 0002 <span>▪▪▪</span>
-        </div>
-      </div>
-
-      <div class="cam">
-        <video src="0003.mp4" muted autoplay loop></video>
-        <div class="cam-label">
-          <span>◉</span> 0003 <span>▪▪▪</span>
-        </div>
-      </div>
-
-      <div class="cam cam-broken cam-0004">
-        <video src="0004.mp4" muted autoplay loop></video>
-        <div class="cam-label">
-          <span>✖</span> 0004 <span style="color:#5f2f2f;">СЛОМАНА</span>
-        </div>
-      </div>
-
-      <div class="cam cam-broken cam-0005">
-        <video src="0005.mp4" muted autoplay loop></video>
-        <div class="cam-label">
-          <span>⚠</span> 0005 <span style="color:#5f2f2f;">НЕТ СИГНАЛА</span>
-        </div>
-      </div>
-
-      <div class="cam cam-broken cam-0006">
-        <video src="0006.mp4" muted autoplay loop></video>
-        <div class="cam-label">
-          <span>⚡</span> 0006 <span style="color:#5f2f2f;">СТАТИКА</span>
-        </div>
-      </div>
-
-      <div class="cam cam-broken cam-0007">
-        <video src="0007.mp4" muted autoplay loop></video>
-        <div class="cam-label">
-          <span>✖</span> 0007 <span style="color:#5f2f2f;">ОШИБКА</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ====== ФУТЕР ====== -->
   <div class="footer-status">
     <span>◉ ВИДЕОНАБЛЮДЕНИЕ · 4/7 АКТИВНЫ</span>
-    <span>11010000 10101111 00100000 11010000 10110010 11010000 10111000 11010000 10110110 11010001 10000011 00100000 11010001 10001101 11010001 10000010 11010000 10111110 11010001 10000010 00100000 11010001 10000001 11010000 10110000 11010000 10111001 11010001 10000010 00100000 00110010 00110100 00101111 00110111 00100000 11010000 10111111 11010000 10111110 11010001 10000010 11010000 10111110 11010000 10111100 11010001 10000011 00100000 11010001 10000111 11010001 10000010 11010000 10111110 00100000 11010001 10001111 00100000 11010000 10111000 11010000 10111100 11010000 10110101 11010001 10001110 00100000 11010000 10111010 00100000 11010000 10111101 11010000 10110101 11010000 10111100 11010001 10000011 00100000 11010000 10111111 11010000 10111110 11010000 10111011 11010000 10111101 11010000 10110101 11010000 10011001 11010001 10001000 11010000 10111000 11010000 10111001 00100000 11010000 10100110 00100000 11010000 10110100 11010000 10111110 11010001 10000001 11010001 10000010 11010000 10100011 11010000 10111111 00001010 11010000 10111101 11010000 10110101 11010000 10110110 11010000 10110101 11010000 10111011 11010000 10111000 00100000 11010001 10001101 11010001 10000010 11010000 10111110 11010001 10000010 00100000 11010001 10000010 11010000 10110101 11010000 10111011 11010000 10110101 11010000 10110010 11010000 10111000 11010000 10110111 11010000 10111110 11010001 10000000</span>
+    <span>⏣ 0001 · 0002 · 0003 · 0004 [СБОЙ] · 0005-0007 [ОТКЛ]</span>
     <span>❚❚❚❚❚❚❚❚❚❚ 91% · <span class="staffbot-id">~SB~</span></span>
   </div>
 
 </div>
 
 <script>
-  // ===== ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК =====
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      // Убираем активный класс у всех кнопок
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
+  // ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР =====
+  // Создаём аудиоэлемент и подключаем к видео (общий звук)
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-      // Скрываем все вкладки
-      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+  // Получаем все видео и создаём общий звуковой контекст
+  const videos = document.querySelectorAll('video');
+  let gainNode = audioCtx.createGain();
+  gainNode.gain.value = 0.5;
 
-      // Показываем нужную вкладку
-      const tabId = this.dataset.tab;
-      document.getElementById(tabId).classList.add('active');
-    });
+  // Обходим все видео и подключаем их звук через gainNode
+  videos.forEach(video => {
+    video.muted = false; // включаем звук
+    // Для каждого видео создаём свой источник
+    const source = audioCtx.createMediaElementSource(video);
+    source.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
   });
 
-  // ===== ЗАПУСК ЗВУКА ПОСЛЕ ПЕРВОГО КЛИКА =====
-  // Некоторые браузеры блокируют autoplay, поэтому запускаем звук по клику
+  // Слайдер громкости
+  const slider = document.getElementById('volumeSlider');
+  const volumeLabel = document.getElementById('volumeLabel');
+
+  slider.addEventListener('input', function() {
+    const val = parseFloat(this.value);
+    gainNode.gain.value = val;
+    volumeLabel.textContent = Math.round(val * 100) + '%';
+  });
+
+  // ===== ВХОД =====
+  function openLogin() {
+    document.getElementById('loginModal').classList.add('active');
+    document.getElementById('passwordInput').value = '';
+    document.getElementById('loginError').textContent = '';
+    document.getElementById('passwordInput').focus();
+  }
+
+  function closeLogin() {
+    document.getElementById('loginModal').classList.remove('active');
+  }
+
+  function checkPassword() {
+    const input = document.getElementById('passwordInput').value;
+    const errorEl = document.getElementById('loginError');
+
+    if (input === 'Evklid') {
+      closeLogin();
+      document.getElementById('hiddenPage').classList.add('active');
+    } else {
+      errorEl.textContent = '✖ НЕВЕРНЫЙ ПАРОЛЬ';
+      document.getElementById('passwordInput').value = '';
+      document.getElementById('passwordInput').focus();
+      setTimeout(() => {
+        errorEl.textContent = '';
+      }, 3000);
+    }
+  }
+
+  // Закрытие по клику вне модалки
+  document.getElementById('loginModal').addEventListener('click', function(e) {
+    if (e.target === this) closeLogin();
+  });
+
+  // ===== СКРЫТАЯ СТРАНИЦА =====
+  function closeHiddenPage() {
+    document.getElementById('hiddenPage').classList.remove('active');
+  }
+
+  // Закрытие скрытой страницы по клику вне
+  document.getElementById('hiddenPage').addEventListener('click', function(e) {
+    if (e.target === this) closeHiddenPage();
+  });
+
+  // ===== ЗАПУСК АУДИОКОНТЕКСТА (нужно для автоплея) =====
   document.addEventListener('click', function() {
-    const audio = document.getElementById('bg-audio');
-    if (audio.paused) {
-      audio.play().catch(() => {});
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
     }
   }, { once: true });
 </script>
