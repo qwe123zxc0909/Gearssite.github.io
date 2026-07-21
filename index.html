@@ -279,13 +279,14 @@
       background: rgba(20, 50, 20, 0.3);
     }
 
+    /* ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР (расширенный) ===== */
     .music-player {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
       background: rgba(5, 10, 5, 0.8);
       border: 1px solid #0a1a0a;
-      padding: 4px 14px 4px 10px;
+      padding: 4px 12px 4px 10px;
       border-radius: 20px;
       backdrop-filter: blur(4px);
     }
@@ -294,8 +295,32 @@
       font-size: 0.8rem;
       letter-spacing: 1px;
     }
+    .music-player .track-info {
+      color: #4a6f4a;
+      font-size: 0.55rem;
+      letter-spacing: 1px;
+      min-width: 50px;
+      text-align: center;
+    }
+    .music-player .ctrl-btn {
+      background: transparent;
+      border: 1px solid #1a3a1a;
+      color: #4a6f4a;
+      padding: 2px 10px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-radius: 4px;
+      line-height: 1.6;
+    }
+    .music-player .ctrl-btn:hover {
+      border-color: #3a7a3a;
+      color: #7faf7f;
+      background: rgba(20, 50, 20, 0.2);
+    }
     .music-player input[type="range"] {
-      width: 80px;
+      width: 60px;
       height: 3px;
       -webkit-appearance: none;
       appearance: none;
@@ -306,8 +331,8 @@
     .music-player input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: #3a7a3a;
       cursor: pointer;
@@ -315,8 +340,8 @@
       box-shadow: 0 0 15px rgba(40, 120, 40, 0.2);
     }
     .music-player input[type="range"]::-moz-range-thumb {
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: #3a7a3a;
       cursor: pointer;
@@ -324,9 +349,9 @@
     }
     .music-player .volume-label {
       color: #3a5f3a;
-      font-size: 0.6rem;
+      font-size: 0.55rem;
       letter-spacing: 1px;
-      min-width: 30px;
+      min-width: 24px;
       text-align: center;
     }
 
@@ -778,7 +803,7 @@
       .camera-grid { grid-template-columns: repeat(4, 1fr); }
       .archive-grid { grid-template-columns: 1fr 1fr; }
       .top-bar { flex-wrap: wrap; gap: 12px; justify-content: center; }
-      .music-player input[type="range"] { width: 60px; }
+      .music-player input[type="range"] { width: 50px; }
     }
     @media (max-width: 768px) {
       .camera-grid { grid-template-columns: repeat(2, 1fr); }
@@ -787,14 +812,17 @@
       .tab-btn { font-size: 0.65rem; padding: 8px 14px; letter-spacing: 2px; }
       .hidden-content { padding: 28px 20px; }
       .hidden-content .title { font-size: 1.1rem; }
+      .music-player .track-info { min-width: 30px; font-size: 0.5rem; }
+      .music-player .ctrl-btn { padding: 2px 6px; font-size: 0.6rem; }
     }
     @media (max-width: 500px) {
       .camera-grid { grid-template-columns: 1fr; }
       .container { padding: 10px; }
       .system-title { font-size: 1.1rem; letter-spacing: 4px; }
-      .music-player input[type="range"] { width: 40px; }
+      .music-player input[type="range"] { width: 30px; }
       .login-box { padding: 28px 20px; }
       .tab-btn { font-size: 0.55rem; padding: 6px 10px; letter-spacing: 1px; }
+      .music-player .track-info { display: none; }
     }
   </style>
 </head>
@@ -890,6 +918,9 @@
 
     <div class="music-player">
       <span class="icon">♫</span>
+      <button class="ctrl-btn" onclick="prevTrack()">◄</button>
+      <span class="track-info" id="trackInfo">1/4</span>
+      <button class="ctrl-btn" onclick="nextTrack()">►</button>
       <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
       <span class="volume-label" id="volumeLabel">50%</span>
     </div>
@@ -1106,7 +1137,7 @@
   <div class="footer-status">
     <span>ВИДЕОНАБЛЮДЕНИЕ</span>
     <span>11010000 10101111 00100000 11010000 10110010 11010000 10111000 11010000 10110110 11010001 10000011 00100000 11010001 10001101 11010001 10000010 11010000 10111110 11010001 10000010 00100000 11010001 10000001 11010000 10110000 11010000 10111001 11010001 10000010 00100000 00110010 00110100 00101111 00110111 00100000 11010000 10111111 11010000 10111110 11010001 10000010 11010000 10111110 11010000 10111100 11010001 10000011 00100000 11010001 10000111 11010001 10000010 11010000 10111110 00100000 11010001 10001111 00100000 11010000 10111000 11010000 10111100 11010000 10110101 11010001 10001110 00100000 11010000 10111010 00100000 11010000 10111101 11010000 10110101 11010000 10111100 11010001 10000011 00100000 11010000 10111111 11010000 10111110 11010000 10111011 11010000 10111101 11010000 10110101 11010000 10011001 11010001 10001000 11010000 10111000 11010000 10111001 00100000 11010000 10100110 00100000 11010000 10110100 11010000 10111110 11010001 10000001 11010001 10000010 11010000 10100011 11010000 10111111 00001010 11010000 10111101 11010000 10110101 11010000 10110110 11010000 10110101 11010000 10111011 11010000 10111000 00100000 11010001 10001101 11010001 10000010 11010000 10111110 11010001 10000010 00100000 11010001 10000010 11010000 10110101 11010000 10111011 11010000 10110101 11010000 10110010 11010000 10111000 11010000 10110111 11010000 10111110 11010001 10000000</span>
-    <span><span class="staffbot-id">~SB~</span></span>
+    <span><span class="staffbot-id">~SS~</span></span>
   </div>
 
 </div>
@@ -1115,30 +1146,49 @@
   // ===== ВКЛАДКИ =====
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', function() {
-      // Убираем активный класс у всех кнопок и контента
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-
-      // Активируем текущую
       this.classList.add('active');
       const tabId = this.dataset.tab;
       document.getElementById('tab-' + tabId).classList.add('active');
     });
   });
 
-  // ===== МУЗЫКА (fon.mp3) =====
-  const musicAudio = new Audio('fon.mp3');
+  // ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР =====
+  const trackList = ['fon.mp3', 'fon1.mp3', 'fon2.mp3', 'fon3.mp3'];
+  let currentTrack = 0;
+  const musicAudio = new Audio(trackList[0]);
   musicAudio.loop = true;
   musicAudio.volume = 0.5;
 
-  // Запускаем музыку при первом клике (из-за политики автоплея)
-  document.addEventListener('click', function() {
-    if (musicAudio.paused) {
-      musicAudio.play().catch(e => console.log('Audio play blocked, waiting for user interaction'));
-    }
-  }, { once: true });
+  // Обновляем отображение трека
+  function updateTrackInfo() {
+    document.getElementById('trackInfo').textContent = (currentTrack + 1) + '/' + trackList.length;
+  }
 
-  // Управление громкостью музыки
+  // Переключение на трек
+  function loadTrack(index) {
+    if (index < 0) index = trackList.length - 1;
+    if (index >= trackList.length) index = 0;
+    currentTrack = index;
+    const wasPlaying = !musicAudio.paused;
+    musicAudio.src = trackList[currentTrack];
+    musicAudio.load();
+    if (wasPlaying) {
+      musicAudio.play().catch(() => {});
+    }
+    updateTrackInfo();
+  }
+
+  function nextTrack() {
+    loadTrack(currentTrack + 1);
+  }
+
+  function prevTrack() {
+    loadTrack(currentTrack - 1);
+  }
+
+  // Управление громкостью
   const volumeSlider = document.getElementById('volumeSlider');
   const volumeLabel = document.getElementById('volumeLabel');
 
@@ -1147,6 +1197,13 @@
     musicAudio.volume = val;
     volumeLabel.textContent = Math.round(val * 100) + '%';
   });
+
+  // Запуск музыки при первом клике
+  document.addEventListener('click', function() {
+    if (musicAudio.paused) {
+      musicAudio.play().catch(() => {});
+    }
+  }, { once: true });
 
   // ===== ВХОД =====
   function openLogin() {
@@ -1190,12 +1247,15 @@
     if (e.target === this) closeHiddenPage();
   });
 
-  // ===== ЗАПУСК МУЗЫКИ ПРИ КЛИКЕ (запасной вариант) =====
+  // Запасной запуск музыки
   document.addEventListener('click', function() {
     if (musicAudio.paused) {
       musicAudio.play().catch(() => {});
     }
   });
+
+  // Инициализация
+  updateTrackInfo();
 </script>
 </body>
 </html>
