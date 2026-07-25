@@ -279,7 +279,7 @@
       background: rgba(20, 50, 20, 0.3);
     }
 
-    /* ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР (расширенный) ===== */
+    /* ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР ===== */
     .music-player {
       display: flex;
       align-items: center;
@@ -401,10 +401,10 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* ===== СЕТКА КАМЕР ===== */
+    /* ===== СЕТКА КАМЕР (9 штук) ===== */
     .camera-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 10px;
     }
 
@@ -461,59 +461,7 @@
       border-bottom-color: #2a1515;
     }
 
-    .cam-0004 { animation: glitch-border 3.2s infinite; }
-    @keyframes glitch-border {
-      0% { border-color: #1a0f0f; }
-      50% { border-color: #3f1f1f; box-shadow: 0 0 30px #150a0a; }
-      100% { border-color: #1a0f0f; }
-    }
-
-    .cam-0005 { animation: noSignal 1.5s infinite; }
-    @keyframes noSignal {
-      0%, 100% { opacity: 0.6; }
-      50% { opacity: 1; }
-    }
-    .cam-0005 video { filter: grayscale(1) brightness(0.1) contrast(0.3); }
-    .cam-0005 .cam-label { color: #5f3f3f; background: #0a0606; border-color: #2a1515; }
-    .cam-0005 .cam-label span { color: #7f4a4a; }
-
-    .cam-0006 { animation: staticNoise 0.8s infinite; }
-    @keyframes staticNoise {
-      0%, 100% { border-color: #1a0f0f; }
-      25% { border-color: #3f1f1f; }
-      50% { border-color: #0f0a0a; }
-      75% { border-color: #2f1a1a; }
-    }
-    .cam-0006 video { filter: grayscale(1) brightness(0.15) contrast(0.4); }
-    .cam-0006 .cam-label { color: #5f3f3f; background: #0a0606; border-color: #2a1515; }
-    .cam-0006 .cam-label span { color: #7f4a4a; }
-
-    .cam-0007 {
-      border-style: dashed;
-      border-color: #3f1f1f;
-      animation: dashedGlitch 2s infinite;
-    }
-    @keyframes dashedGlitch {
-      0%, 100% { border-color: #3f1f1f; border-style: dashed; }
-      50% { border-color: #5f2f2f; border-style: dotted; }
-    }
-    .cam-0007 video { filter: grayscale(1) brightness(0.05) contrast(0.2); }
-    .cam-0007 .cam-label { color: #5f3f3f; background: #0a0606; border-color: #2a1515; }
-    .cam-0007 .cam-label span { color: #7f4a4a; }
-    .cam-0007::before {
-      content: '✖';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 3rem;
-      color: rgba(120, 30, 30, 0.3);
-      z-index: 2;
-      pointer-events: none;
-      font-weight: 300;
-    }
-
-    /* ===== АРХИВ (вкладка) ===== */
+    /* ===== АРХИВ ===== */
     .archive-grid {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -800,7 +748,7 @@
     .footer-status .staffbot-id { color: #4a7a4a; letter-spacing: 3px; }
 
     @media (max-width: 1100px) {
-      .camera-grid { grid-template-columns: repeat(4, 1fr); }
+      .camera-grid { grid-template-columns: repeat(3, 1fr); }
       .archive-grid { grid-template-columns: 1fr 1fr; }
       .top-bar { flex-wrap: wrap; gap: 12px; justify-content: center; }
       .music-player input[type="range"] { width: 50px; }
@@ -938,55 +886,78 @@
     <button class="tab-btn" data-tab="archive">⏣ АРХИВ</button>
   </div>
 
-  <!-- ====== ВКЛАДКА: КАМЕРЫ ====== -->
+  <!-- ====== ВКЛАДКА: КАМЕРЫ (9 штук) ====== -->
   <div class="tab-content active" id="tab-cameras">
     <div class="camera-grid">
+      <!-- Камера 1 -->
       <div class="cam">
-        <video id="vid1" src="0001.mp4" muted autoplay loop></video>
+        <video src="0001.mp4" muted autoplay loop></video>
         <div class="cam-label">
           <span>◉</span> 0001 <span>▪▪▪</span>
         </div>
       </div>
 
+      <!-- Камера 2 -->
       <div class="cam">
-        <video id="vid2" src="0002.mp4" muted autoplay loop></video>
+        <video src="0002.mp4" muted autoplay loop></video>
         <div class="cam-label">
           <span>◉</span> 0002 <span>▪▪▪</span>
         </div>
       </div>
 
+      <!-- Камера 3 -->
       <div class="cam">
-        <video id="vid3" src="0003.mp4" muted autoplay loop></video>
+        <video src="0003.mp4" muted autoplay loop></video>
         <div class="cam-label">
           <span>◉</span> 0003 <span>▪▪▪</span>
         </div>
       </div>
 
-      <div class="cam cam-broken cam-0004">
-        <video id="vid4" src="0004.mp4" muted autoplay loop></video>
+      <!-- Камера 4 -->
+      <div class="cam">
+        <video src="0004.mp4" muted autoplay loop></video>
         <div class="cam-label">
-          <span>✖</span> 0004 <span style="color:#5f2f2f;">СЛОМАНА</span>
+          <span>◉</span> 0004 <span>▪▪▪</span>
         </div>
       </div>
 
-      <div class="cam cam-broken cam-0005">
-        <video id="vid5" src="0005.mp4" muted autoplay loop></video>
+      <!-- Камера 5 -->
+      <div class="cam">
+        <video src="0005.mp4" muted autoplay loop></video>
         <div class="cam-label">
-          <span>⚠</span> 0005 <span style="color:#5f2f2f;">НЕТ СИГНАЛА</span>
+          <span>◉</span> 0005 <span>▪▪▪</span>
         </div>
       </div>
 
-      <div class="cam cam-broken cam-0006">
-        <video id="vid6" src="0006.mp4" muted autoplay loop></video>
+      <!-- Камера 6 -->
+      <div class="cam">
+        <video src="0006.mp4" muted autoplay loop></video>
         <div class="cam-label">
-          <span>⚡</span> 0006 <span style="color:#5f2f2f;">СТАТИКА</span>
+          <span>◉</span> 0006 <span>▪▪▪</span>
         </div>
       </div>
 
-      <div class="cam cam-broken cam-0007">
-        <video id="vid7" src="0007.mp4" muted autoplay loop></video>
+      <!-- Камера 7 -->
+      <div class="cam">
+        <video src="0007.mp4" muted autoplay loop></video>
         <div class="cam-label">
-          <span>✖</span> 0007 <span style="color:#5f2f2f;">ОШИБКА</span>
+          <span>◉</span> 0007 <span>▪▪▪</span>
+        </div>
+      </div>
+
+      <!-- Камера 8 -->
+      <div class="cam">
+        <video src="0008.mp4" muted autoplay loop></video>
+        <div class="cam-label">
+          <span>◉</span> 0008 <span>▪▪▪</span>
+        </div>
+      </div>
+
+      <!-- Камера 9 -->
+      <div class="cam">
+        <video src="0009.mp4" muted autoplay loop></video>
+        <div class="cam-label">
+          <span>◉</span> 0009 <span>▪▪▪</span>
         </div>
       </div>
     </div>
@@ -996,7 +967,6 @@
   <div class="tab-content" id="tab-archive">
     <div class="archive-grid">
 
-      <!-- Колонка 1 -->
       <div class="archive-col">
         <div class="col-header">
           <span>⬡</span> ЗАПИСИ <small>// лог ИИ</small>
@@ -1045,7 +1015,6 @@
         </div>
       </div>
 
-      <!-- Колонка 2 -->
       <div class="archive-col">
         <div class="col-header">
           <span>⏣</span> АРХИВ <small>// логи ~STAFFBOT~</small>
@@ -1085,7 +1054,6 @@
         </div>
       </div>
 
-      <!-- Колонка 3 -->
       <div class="archive-col col-extra">
         <div class="col-header">
           <span>⏣</span> АРХИВ <small>// фрагменты ~SB~</small>
@@ -1161,12 +1129,10 @@
   musicAudio.loop = true;
   musicAudio.volume = 0.5;
 
-  // Обновляем отображение трека
   function updateTrackInfo() {
     document.getElementById('trackInfo').textContent = (currentTrack + 1) + '/' + trackList.length;
   }
 
-  // Переключение на трек
   function loadTrack(index) {
     if (index < 0) index = trackList.length - 1;
     if (index >= trackList.length) index = 0;
@@ -1188,7 +1154,6 @@
     loadTrack(currentTrack - 1);
   }
 
-  // Управление громкостью
   const volumeSlider = document.getElementById('volumeSlider');
   const volumeLabel = document.getElementById('volumeLabel');
 
@@ -1198,7 +1163,6 @@
     volumeLabel.textContent = Math.round(val * 100) + '%';
   });
 
-  // Запуск музыки при первом клике
   document.addEventListener('click', function() {
     if (musicAudio.paused) {
       musicAudio.play().catch(() => {});
@@ -1247,14 +1211,12 @@
     if (e.target === this) closeHiddenPage();
   });
 
-  // Запасной запуск музыки
   document.addEventListener('click', function() {
     if (musicAudio.paused) {
       musicAudio.play().catch(() => {});
     }
   });
 
-  // Инициализация
   updateTrackInfo();
 </script>
 </body>
