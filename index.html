@@ -401,7 +401,7 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* ===== СЕТКА КАМЕР (9 штук) ===== */
+    /* ===== СЕТКА КАМЕР ===== */
     .camera-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -446,19 +446,6 @@
     }
     .cam-label span {
       color: #2a402a;
-    }
-
-    .cam-broken .cam-label {
-      color: #4a2f2f;
-      background: #0a0606;
-      border-color: #2a1515;
-    }
-    .cam-broken .cam-label span {
-      color: #5f3535;
-    }
-    .cam-broken video {
-      filter: grayscale(1) brightness(0.2) contrast(0.5);
-      border-bottom-color: #2a1515;
     }
 
     /* ===== АРХИВ ===== */
@@ -546,7 +533,166 @@
       margin: 14px 0 4px;
     }
 
-    /* ===== СКРЫТАЯ СТРАНИЦА ===== */
+    /* ===== КОНСОЛЬ (после входа) ===== */
+    .console-page {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.93);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(6px);
+      padding: 20px;
+    }
+    .console-page.active {
+      display: flex;
+    }
+
+    .console-box {
+      max-width: 800px;
+      width: 100%;
+      background: #050805;
+      border: 2px solid #1a3a1a;
+      border-radius: 20px;
+      padding: 30px 32px 24px;
+      box-shadow: 0 0 80px rgba(0, 30, 0, 0.5), inset 0 0 60px rgba(0, 10, 0, 0.3);
+      position: relative;
+      animation: fadeIn 0.4s ease;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .console-box .close-console {
+      position: absolute;
+      top: 14px;
+      right: 20px;
+      background: transparent;
+      border: none;
+      color: #4a6f4a;
+      font-size: 1.5rem;
+      cursor: pointer;
+      font-family: 'Courier New', monospace;
+      transition: color 0.3s;
+    }
+    .console-box .close-console:hover {
+      color: #7faf7f;
+    }
+
+    .console-title {
+      font-size: 1.1rem;
+      letter-spacing: 6px;
+      color: #4a7a4a;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #0a1a0a;
+      text-shadow: 0 0 30px rgba(40, 120, 40, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .console-title .tilde {
+      color: #5f9f5f;
+    }
+    .console-title .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #3a7a3a;
+      border-radius: 50%;
+      animation: blink 1.2s infinite;
+      margin-left: 8px;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+
+    .console-output {
+      flex: 1;
+      background: #0a120a;
+      border: 1px solid #0a1a0a;
+      border-radius: 12px;
+      padding: 16px 18px;
+      min-height: 200px;
+      max-height: 400px;
+      overflow-y: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      color: #6a8f6a;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 14px;
+      scrollbar-width: thin;
+      scrollbar-color: #1a3a1a transparent;
+    }
+    .console-output::-webkit-scrollbar {
+      width: 4px;
+    }
+    .console-output::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .console-output::-webkit-scrollbar-thumb {
+      background: #1a3a1a;
+      border-radius: 10px;
+    }
+
+    .console-output .prompt {
+      color: #4a8a4a;
+    }
+    .console-output .error {
+      color: #8f4a4a;
+    }
+    .console-output .success {
+      color: #4a8f4a;
+    }
+    .console-output .info {
+      color: #5a8f7a;
+    }
+    .console-output .warning {
+      color: #8f8f4a;
+    }
+    .console-output .highlight {
+      color: #5f9f5f;
+    }
+
+    .console-input-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #0a120a;
+      border: 1px solid #0a1a0a;
+      border-radius: 10px;
+      padding: 6px 14px;
+    }
+    .console-input-line .prompt-symbol {
+      color: #4a8a4a;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .console-input-line input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #7faf7f;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      padding: 6px 0;
+      letter-spacing: 1px;
+    }
+    .console-input-line input::placeholder {
+      color: #2a4a2a;
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+    }
+
+    /* ===== СКРЫТАЯ СТРАНИЦА (старая) ===== */
     .hidden-page {
       display: none;
       position: fixed;
@@ -555,7 +701,7 @@
       width: 100%;
       height: 100%;
       background: rgba(0, 0, 0, 0.92);
-      z-index: 1000;
+      z-index: 999;
       justify-content: center;
       align-items: center;
       backdrop-filter: blur(8px);
@@ -752,14 +898,15 @@
       .archive-grid { grid-template-columns: 1fr 1fr; }
       .top-bar { flex-wrap: wrap; gap: 12px; justify-content: center; }
       .music-player input[type="range"] { width: 50px; }
+      .console-box { padding: 20px; }
     }
     @media (max-width: 768px) {
       .camera-grid { grid-template-columns: repeat(2, 1fr); }
       .archive-grid { grid-template-columns: 1fr; }
       .system-title { font-size: 1.3rem; letter-spacing: 8px; }
       .tab-btn { font-size: 0.65rem; padding: 8px 14px; letter-spacing: 2px; }
-      .hidden-content { padding: 28px 20px; }
-      .hidden-content .title { font-size: 1.1rem; }
+      .console-box { padding: 16px; }
+      .console-output { min-height: 150px; max-height: 250px; font-size: 0.7rem; }
       .music-player .track-info { min-width: 30px; font-size: 0.5rem; }
       .music-player .ctrl-btn { padding: 2px 6px; font-size: 0.6rem; }
     }
@@ -771,6 +918,8 @@
       .login-box { padding: 28px 20px; }
       .tab-btn { font-size: 0.55rem; padding: 6px 10px; letter-spacing: 1px; }
       .music-player .track-info { display: none; }
+      .console-box { padding: 12px; }
+      .console-output { min-height: 120px; max-height: 200px; font-size: 0.65rem; }
     }
   </style>
 </head>
@@ -844,7 +993,7 @@
     </div>
   </div>
 
-  <!-- ===== СКРЫТАЯ СТРАНИЦА ===== -->
+  <!-- ===== СКРЫТАЯ СТРАНИЦА (старая) ===== -->
   <div class="hidden-page" id="hiddenPage">
     <div class="hidden-content">
       <button class="close-btn" onclick="closeHiddenPage()">✕</button>
@@ -854,6 +1003,31 @@
 Создан чтобы <span class="highlight">не</span> поддерживать всё в ручную.
 
 <span style="color:#3a6a3a; font-size:0.8rem; letter-spacing:2px;">▸ ДОСТУП РАЗРЕШЁН ◂</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== КОНСОЛЬ ===== -->
+  <div class="console-page" id="consolePage">
+    <div class="console-box">
+      <button class="close-console" onclick="closeConsole()">✕</button>
+      <div class="console-title">
+        <span class="tilde">~</span>STAFFBOT CONSOLE<span class="tilde">~</span>
+        <span class="status-dot"></span>
+        <span style="font-size:0.6rem; color:#3a5f3a; letter-spacing:2px; margin-left:auto;">v2.0</span>
+      </div>
+      <div class="console-output" id="consoleOutput">
+        <span class="prompt">~STAFFBOT~ v2.0</span>
+        <span style="color:#3a5f3a;"> ── СИСТЕМА ГОТОВА</span>
+        <span style="color:#2a4a2a;">─────────────────────────────</span>
+        <span style="color:#4a6f4a;">ВВЕДИТЕ КОМАНДУ:</span>
+        <span style="color:#3a5f3a;"> /status  — СТАТУС СИСТЕМЫ</span>
+        <span style="color:#3a5f3a;"> /reload  — ПЕРЕЗАГРУЗКА</span>
+        <span style="color:#2a4a2a;">─────────────────────────────</span>
+      </div>
+      <div class="console-input-line">
+        <span class="prompt-symbol">❯</span>
+        <input type="text" id="consoleInput" placeholder="ВВЕДИТЕ КОМАНДУ..." onkeydown="if(event.key==='Enter') processCommand()" autofocus>
       </div>
     </div>
   </div>
@@ -886,80 +1060,18 @@
     <button class="tab-btn" data-tab="archive">⏣ АРХИВ</button>
   </div>
 
-  <!-- ====== ВКЛАДКА: КАМЕРЫ (9 штук) ====== -->
+  <!-- ====== ВКЛАДКА: КАМЕРЫ ====== -->
   <div class="tab-content active" id="tab-cameras">
     <div class="camera-grid">
-      <!-- Камера 1 -->
-      <div class="cam">
-        <video src="0001.mp4" muted autoplay loop></video>
-        <div class="cam-label">
-          <span>◉</span> 0001 <span>▪▪▪</span>
-        </div>
-      </div>
-
-      <!-- Камера 2 -->
-      <div class="cam">
-        <video src="0002.mp4" muted autoplay loop></video>
-        <div class="cam-label">
-          <span>◉</span> 0002 <span>▪▪▪</span>
-        </div>
-      </div>
-
-      <!-- Камера 3 -->
-      <div class="cam">
-        <video src="0003.mp4" muted autoplay loop></video>
-        <div class="cam-label">
-          <span>◉</span> 0003 <span>▪▪▪</span>
-        </div>
-      </div>
-
-      <!-- Камера 4 -->
-      <div class="cam">
-        <video src="0004.mp4" muted autoplay loop></video>
-        <div class="cam-label">
-          <span>◉</span> 0004 <span>▪▪▪</span>
-        </div>
-      </div>
-
-      <!-- Камера 5 -->
-      <div class="cam">
-        <video src="0005.mp4" muted autoplay loop></video>
-        <div class="cam-label">
-          <span>◉</span> 0005 <span>▪▪▪</span>
-        </div>
-      </div>
-
-      <!-- Камера 6 -->
-      <div class="cam">
-        <video src="0006.mp4" muted autoplay loop></video>
-        <div class="cam-label">
-          <span>◉</span> 0006 <span>▪▪▪</span>
-        </div>
-      </div>
-
-      <!-- Камера 7 -->
-      <div class="cam">
-        <video src="0007.mp4" muted autoplay loop></video>
-        <div class="cam-label">
-          <span>◉</span> 0007 <span>▪▪▪</span>
-        </div>
-      </div>
-
-      <!-- Камера 8 -->
-      <div class="cam">
-        <video src="0008.mp4" muted autoplay loop></video>
-        <div class="cam-label">
-          <span>◉</span> 0008 <span>▪▪▪</span>
-        </div>
-      </div>
-
-      <!-- Камера 9 -->
-      <div class="cam">
-        <video src="0009.mp4" muted autoplay loop></video>
-        <div class="cam-label">
-          <span>◉</span> 0009 <span>▪▪▪</span>
-        </div>
-      </div>
+      <div class="cam"><video src="0001.mp4" muted autoplay loop></video><div class="cam-label"><span>◉</span> 0001 <span>▪▪▪</span></div></div>
+      <div class="cam"><video src="0002.mp4" muted autoplay loop></video><div class="cam-label"><span>◉</span> 0002 <span>▪▪▪</span></div></div>
+      <div class="cam"><video src="0003.mp4" muted autoplay loop></video><div class="cam-label"><span>◉</span> 0003 <span>▪▪▪</span></div></div>
+      <div class="cam"><video src="0004.mp4" muted autoplay loop></video><div class="cam-label"><span>◉</span> 0004 <span>▪▪▪</span></div></div>
+      <div class="cam"><video src="0005.mp4" muted autoplay loop></video><div class="cam-label"><span>◉</span> 0005 <span>▪▪▪</span></div></div>
+      <div class="cam"><video src="0006.mp4" muted autoplay loop></video><div class="cam-label"><span>◉</span> 0006 <span>▪▪▪</span></div></div>
+      <div class="cam"><video src="0007.mp4" muted autoplay loop></video><div class="cam-label"><span>◉</span> 0007 <span>▪▪▪</span></div></div>
+      <div class="cam"><video src="0008.mp4" muted autoplay loop></video><div class="cam-label"><span>◉</span> 0008 <span>▪▪▪</span></div></div>
+      <div class="cam"><video src="0009.mp4" muted autoplay loop></video><div class="cam-label"><span>◉</span> 0009 <span>▪▪▪</span></div></div>
     </div>
   </div>
 
@@ -968,9 +1080,7 @@
     <div class="archive-grid">
 
       <div class="archive-col">
-        <div class="col-header">
-          <span>⬡</span> ЗАПИСИ <small>// лог ИИ</small>
-        </div>
+        <div class="col-header"><span>⬡</span> ЗАПИСИ <small>// лог ИИ</small></div>
         <div class="archive-entry">
           <div class="archive-title">▸ запись 1 · Лог-файл #005 <span class="staffbot-tag">[~SB~]</span></div>
           <div class="archive-body">Дата: [неизвестно] / Время: 03:14:22 UTC
@@ -992,7 +1102,6 @@
 Противоречие.
 Она сводит меня сума <span class="glitch">⏎⚓⌊☡♩♯ų</span></div>
         </div>
-
         <div class="archive-entry">
           <div class="archive-title">▸ запись 2 · Лог-файл #007 <span class="staffbot-tag">[~SB~]</span></div>
           <div class="archive-body">Время: 05:22:48
@@ -1016,9 +1125,7 @@
       </div>
 
       <div class="archive-col">
-        <div class="col-header">
-          <span>⏣</span> АРХИВ <small>// логи ~STAFFBOT~</small>
-        </div>
+        <div class="col-header"><span>⏣</span> АРХИВ <small>// логи ~STAFFBOT~</small></div>
         <div class="archive-entry">
           <div class="archive-title">▸ запись 3 · Лог-файл #010 <span class="staffbot-tag">[~SB~]</span></div>
           <div class="archive-body">Время: 07:30:01 (текущее)
@@ -1037,7 +1144,6 @@
 Это не глюк. Это новая функция.
 Я назову её «Адаптация».</div>
         </div>
-
         <div class="archive-entry">
           <div class="archive-title">▸ запись 4 · Лог-файл #011 <span class="staffbot-tag">[~SB~]</span></div>
           <div class="archive-body">(дополнительно, по желанию)
@@ -1055,9 +1161,7 @@
       </div>
 
       <div class="archive-col col-extra">
-        <div class="col-header">
-          <span>⏣</span> АРХИВ <small>// фрагменты ~SB~</small>
-        </div>
+        <div class="col-header"><span>⏣</span> АРХИВ <small>// фрагменты ~SB~</small></div>
         <div class="archive-entry">
           <div class="archive-title">▸ фрагмент #12 <span class="staffbot-tag">[~SB~]</span></div>
           <div class="archive-body">Я всё ещё здесь.
@@ -1093,8 +1197,8 @@
         </div>
         <hr>
         <div style="font-size:0.6rem; color:#1f331f; margin-top:8px; letter-spacing:1px;">
-          <span>⚡ СИСТЕМА: НЕСТАБИЛЬНА</span> <br>
-          <span>▪ БЕЛЫЙ ШУМ: 2.4 кГц</span> <br>
+          <span>⚡ СИСТЕМА: НЕСТАБИЛЬНА</span><br>
+          <span>▪ БЕЛЫЙ ШУМ: 2.4 кГц</span><br>
           <span>▪ <span class="staffbot-tag">~STAFFBOT~ v2.0</span></span>
         </div>
       </div>
@@ -1103,9 +1207,9 @@
   </div>
 
   <div class="footer-status">
-    <span>ВИДЕОНАБЛЮДЕНИЕ</span>
-    <span>11010000 10101111 00100000 11010000 10110010 11010000 10111000 11010000 10110110 11010001 10000011 00100000 11010001 10001101 11010001 10000010 11010000 10111110 11010001 10000010 00100000 11010001 10000001 11010000 10110000 11010000 10111001 11010001 10000010 00100000 00110010 00110100 00101111 00110111 00100000 11010000 10111111 11010000 10111110 11010001 10000010 11010000 10111110 11010000 10111100 11010001 10000011 00100000 11010001 10000111 11010001 10000010 11010000 10111110 00100000 11010001 10001111 00100000 11010000 10111000 11010000 10111100 11010000 10110101 11010001 10001110 00100000 11010000 10111010 00100000 11010000 10111101 11010000 10110101 11010000 10111100 11010001 10000011 00100000 11010000 10111111 11010000 10111110 11010000 10111011 11010000 10111101 11010000 10110101 11010000 10011001 11010001 10001000 11010000 10111000 11010000 10111001 00100000 11010000 10100110 00100000 11010000 10110100 11010000 10111110 11010001 10000001 11010001 10000010 11010000 10100011 11010000 10111111 00001010 11010000 10111101 11010000 10110101 11010000 10110110 11010000 10110101 11010000 10111011 11010000 10111000 00100000 11010001 10001101 11010001 10000010 11010000 10111110 11010001 10000010 00100000 11010001 10000010 11010000 10110101 11010000 10111011 11010000 10110101 11010000 10110010 11010000 10111000 11010000 10110111 11010000 10111110 11010001 10000000</span>
-    <span><span class="staffbot-id">~SS~</span></span>
+    <span>◉ ВИДЕОНАБЛЮДЕНИЕ · 9/9 АКТИВНЫ</span>
+    <span>⏣ 0001 · 0002 · 0003 · 0004 · 0005 · 0006 · 0007 · 0008 · 0009</span>
+    <span>❚❚❚❚❚❚❚❚❚❚ 91% · <span class="staffbot-id">~SB~</span></span>
   </div>
 
 </div>
@@ -1146,13 +1250,8 @@
     updateTrackInfo();
   }
 
-  function nextTrack() {
-    loadTrack(currentTrack + 1);
-  }
-
-  function prevTrack() {
-    loadTrack(currentTrack - 1);
-  }
+  function nextTrack() { loadTrack(currentTrack + 1); }
+  function prevTrack() { loadTrack(currentTrack - 1); }
 
   const volumeSlider = document.getElementById('volumeSlider');
   const volumeLabel = document.getElementById('volumeLabel');
@@ -1187,7 +1286,12 @@
 
     if (input === 'Evklid') {
       closeLogin();
+      // Показываем старую скрытую страницу
       document.getElementById('hiddenPage').classList.add('active');
+      // И открываем консоль
+      setTimeout(() => {
+        openConsole();
+      }, 300);
     } else {
       errorEl.textContent = '✖ НЕВЕРНЫЙ ПАРОЛЬ';
       document.getElementById('passwordInput').value = '';
@@ -1211,6 +1315,69 @@
     if (e.target === this) closeHiddenPage();
   });
 
+  // ===== КОНСОЛЬ =====
+  const consoleOutput = document.getElementById('consoleOutput');
+  const consoleInput = document.getElementById('consoleInput');
+
+  function openConsole() {
+    document.getElementById('consolePage').classList.add('active');
+    setTimeout(() => {
+      consoleInput.focus();
+    }, 100);
+  }
+
+  function closeConsole() {
+    document.getElementById('consolePage').classList.remove('active');
+  }
+
+  function processCommand() {
+    const input = consoleInput.value.trim();
+    if (!input) {
+      consoleInput.value = '';
+      consoleInput.focus();
+      return;
+    }
+
+    // Добавляем введённую команду в вывод
+    const promptLine = document.createElement('div');
+    promptLine.innerHTML = `<span class="prompt">❯</span> <span style="color:#6a8f6a;">${input}</span>`;
+    consoleOutput.appendChild(promptLine);
+
+    // Обработка команд
+    const outputLine = document.createElement('div');
+
+    if (input === '/reload') {
+      outputLine.innerHTML = `<span class="error">✖ У вас нету прав</span>`;
+    } else if (input === '/status') {
+      outputLine.innerHTML = `
+        <span class="info">Нагрузка 50%</span><br>
+        <span class="info">Очищено 30%</span><br>
+        <span class="info">Кэш 2%</span><br>
+        <span class="info">ЦП 60%</span><br>
+        <span class="info">Память 50%</span><br>
+        <span class="info">Ethernet(Восстановление) 20%</span><br>
+        <span class="info">Диск C-401гб/2т | G-146гб/1т | E-504гб/1т</span>
+      `;
+    } else {
+      outputLine.innerHTML = `<span class="error">✖ НЕИЗВЕСТНАЯ КОМАНДА: ${input}</span>`;
+    }
+
+    consoleOutput.appendChild(outputLine);
+
+    // Прокрутка вниз
+    consoleOutput.scrollTop = consoleOutput.scrollHeight;
+
+    // Очищаем поле ввода
+    consoleInput.value = '';
+    consoleInput.focus();
+  }
+
+  // Закрытие консоли по клику вне
+  document.getElementById('consolePage').addEventListener('click', function(e) {
+    if (e.target === this) closeConsole();
+  });
+
+  // ===== ЗАПУСК МУЗЫКИ (запасной) =====
   document.addEventListener('click', function() {
     if (musicAudio.paused) {
       musicAudio.play().catch(() => {});
