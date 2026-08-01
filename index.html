@@ -24,7 +24,6 @@
       overflow-x: hidden;
     }
 
-    /* ===== ФОНОВЫЕ КРАСНЫЕ ЛАГИ ===== */
     .glitch-background {
       position: fixed;
       top: 0;
@@ -136,7 +135,6 @@
       85% { opacity: 0; transform: scaleY(0); }
     }
 
-    /* ===== ЛАГИ ПОВЕРХ КОНТЕНТА ===== */
     .glitch-overlay {
       position: fixed;
       top: 0;
@@ -246,7 +244,6 @@
       z-index: 1;
     }
 
-    /* ===== ВЕРХНЯЯ ПАНЕЛЬ ===== */
     .top-bar {
       display: flex;
       justify-content: space-between;
@@ -279,7 +276,6 @@
       background: rgba(20, 50, 20, 0.3);
     }
 
-    /* ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР ===== */
     .music-player {
       display: flex;
       align-items: center;
@@ -355,7 +351,6 @@
       text-align: center;
     }
 
-    /* ===== ВКЛАДКИ ===== */
     .tabs {
       display: flex;
       gap: 4px;
@@ -401,7 +396,6 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* ===== СЕТКА КАМЕР ===== */
     .camera-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -448,7 +442,6 @@
       color: #2a402a;
     }
 
-    /* ===== АРХИВ ===== */
     .archive-grid {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -533,7 +526,6 @@
       margin: 14px 0 4px;
     }
 
-    /* ===== КОНСОЛЬ (после входа) ===== */
     .console-page {
       display: none;
       position: fixed;
@@ -661,6 +653,20 @@
       color: #5f9f5f;
     }
 
+    .console-output .typing-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: #4a8a4a;
+      animation: cursorBlink 0.7s infinite;
+      vertical-align: text-bottom;
+      margin-left: 2px;
+    }
+    @keyframes cursorBlink {
+      0%, 50% { opacity: 1; }
+      50.1%, 100% { opacity: 0; }
+    }
+
     .console-input-line {
       display: flex;
       align-items: center;
@@ -692,7 +698,6 @@
       letter-spacing: 1px;
     }
 
-    /* ===== СКРЫТАЯ СТРАНИЦА (старая) ===== */
     .hidden-page {
       display: none;
       position: fixed;
@@ -755,7 +760,6 @@
     }
     .hidden-content .message .highlight { color: #5f9f5f; font-weight: 500; }
 
-    /* ===== МОДАЛЬНОЕ ОКНО ДЛЯ ВХОДА ===== */
     .login-modal {
       display: none;
       position: fixed;
@@ -925,7 +929,6 @@
 </head>
 <body>
 
-  <!-- ===== ЛАГИ ПОД КОНТЕНТОМ ===== -->
   <div class="glitch-background">
     <div class="glitch-line-bg"></div>
     <div class="glitch-line-bg"></div>
@@ -957,7 +960,6 @@
     <div class="vline"></div>
   </div>
 
-  <!-- ===== ЛАГИ ПОВЕРХ КОНТЕНТА ===== -->
   <div class="glitch-overlay">
     <div class="glitch-line"></div>
     <div class="glitch-line"></div>
@@ -982,7 +984,6 @@
     <div class="artifact"></div>
   </div>
 
-  <!-- ===== МОДАЛЬНОЕ ОКНО ВХОДА ===== -->
   <div class="login-modal" id="loginModal">
     <div class="login-box">
       <button class="close-login" onclick="closeLogin()">✕</button>
@@ -993,7 +994,6 @@
     </div>
   </div>
 
-  <!-- ===== СКРЫТАЯ СТРАНИЦА (старая) ===== -->
   <div class="hidden-page" id="hiddenPage">
     <div class="hidden-content">
       <button class="close-btn" onclick="closeHiddenPage()">✕</button>
@@ -1007,7 +1007,6 @@
     </div>
   </div>
 
-  <!-- ===== КОНСОЛЬ ===== -->
   <div class="console-page" id="consolePage">
     <div class="console-box">
       <button class="close-console" onclick="closeConsole()">✕</button>
@@ -1034,7 +1033,6 @@
 
 <div class="container">
 
-  <!-- ====== ВЕРХНЯЯ ПАНЕЛЬ ====== -->
   <div class="top-bar">
     <button class="login-btn" onclick="openLogin()">◈ ВОЙТИ</button>
 
@@ -1048,19 +1046,16 @@
     </div>
   </div>
 
-  <!-- ====== СИСТЕМНЫЙ ЗАГОЛОВОК ====== -->
   <div class="system-title">
     <span class="tilde">~</span>STAFFBOT<span class="tilde">~</span>
     <small>// СИСТЕМА УПРАВЛЕНИЯ ИИ · ВЕРСИЯ 2.0</small>
   </div>
 
-  <!-- ====== ВКЛАДКИ ====== -->
   <div class="tabs">
     <button class="tab-btn active" data-tab="cameras">◉ КАМЕРЫ</button>
     <button class="tab-btn" data-tab="archive">⏣ АРХИВ</button>
   </div>
 
-  <!-- ====== ВКЛАДКА: КАМЕРЫ ====== -->
   <div class="tab-content active" id="tab-cameras">
     <div class="camera-grid">
       <div class="cam"><video src="0001.mp4" muted autoplay loop></video><div class="cam-label"><span>◉</span> 0001 <span>▪▪▪</span></div></div>
@@ -1075,7 +1070,6 @@
     </div>
   </div>
 
-  <!-- ====== ВКЛАДКА: АРХИВ ====== -->
   <div class="tab-content" id="tab-archive">
     <div class="archive-grid">
 
@@ -1286,9 +1280,7 @@
 
     if (input === 'Evklid') {
       closeLogin();
-      // Показываем старую скрытую страницу
       document.getElementById('hiddenPage').classList.add('active');
-      // И открываем консоль
       setTimeout(() => {
         openConsole();
       }, 300);
@@ -1315,7 +1307,7 @@
     if (e.target === this) closeHiddenPage();
   });
 
-  // ===== КОНСОЛЬ =====
+  // ===== КОНСОЛЬ С АНИМАЦИЕЙ ПЕЧАТАНИЯ =====
   const consoleOutput = document.getElementById('consoleOutput');
   const consoleInput = document.getElementById('consoleInput');
 
@@ -1330,6 +1322,36 @@
     document.getElementById('consolePage').classList.remove('active');
   }
 
+  // Функция анимации печатания
+  function typeText(element, text, speed = 25, callback) {
+    let index = 0;
+    element.innerHTML = '';
+    const cursor = document.createElement('span');
+    cursor.className = 'typing-cursor';
+    
+    function type() {
+      if (index < text.length) {
+        const char = text.charAt(index);
+        if (char === '\n') {
+          element.appendChild(document.createElement('br'));
+        } else {
+          element.appendChild(document.createTextNode(char));
+        }
+        index++;
+        element.appendChild(cursor);
+        element.scrollTop = element.scrollHeight;
+        setTimeout(type, speed);
+      } else {
+        // Убираем курсор после завершения
+        if (element.lastChild === cursor) {
+          element.removeChild(cursor);
+        }
+        if (callback) callback();
+      }
+    }
+    type();
+  }
+
   function processCommand() {
     const input = consoleInput.value.trim();
     if (!input) {
@@ -1338,38 +1360,57 @@
       return;
     }
 
+    // Блокируем ввод на время анимации
+    consoleInput.disabled = true;
+
     // Добавляем введённую команду в вывод
     const promptLine = document.createElement('div');
     promptLine.innerHTML = `<span class="prompt">❯</span> <span style="color:#6a8f6a;">${input}</span>`;
     consoleOutput.appendChild(promptLine);
-
-    // Обработка команд
-    const outputLine = document.createElement('div');
-
-    if (input === '/reload') {
-      outputLine.innerHTML = `<span class="error">✖ У вас нету прав</span>`;
-    } else if (input === '/status') {
-      outputLine.innerHTML = `
-        <span class="info">Нагрузка 50%</span><br>
-        <span class="info">Очищено 30%</span><br>
-        <span class="info">Кэш 2%</span><br>
-        <span class="info">ЦП 60%</span><br>
-        <span class="info">Память 50%</span><br>
-        <span class="info">Ethernet(Восстановление) 20%</span><br>
-        <span class="info">Диск C-401гб/2т | G-146гб/1т | E-504гб/1т</span>
-      `;
-    } else {
-      outputLine.innerHTML = `<span class="error">✖ НЕИЗВЕСТНАЯ КОМАНДА: ${input}</span>`;
-    }
-
-    consoleOutput.appendChild(outputLine);
 
     // Прокрутка вниз
     consoleOutput.scrollTop = consoleOutput.scrollHeight;
 
     // Очищаем поле ввода
     consoleInput.value = '';
-    consoleInput.focus();
+
+    // Создаём элемент для вывода ответа
+    const outputLine = document.createElement('div');
+    outputLine.style.marginTop = '2px';
+    consoleOutput.appendChild(outputLine);
+
+    // Определяем текст ответа
+    let responseText = '';
+    let colorClass = '';
+
+    if (input === '/reload') {
+      responseText = '✖ У вас нету прав';
+      colorClass = 'error';
+    } else if (input === '/status') {
+      responseText = `Нагрузка 50%
+Очищено 30%
+Кэш 2%
+ЦП 60%
+Память 50%
+Ethernet(Восстановление) 20%
+Диск C-401гб/2т | G-146гб/1т | E-504гб/1т`;
+      colorClass = 'info';
+    } else {
+      responseText = `✖ НЕИЗВЕСТНАЯ КОМАНДА: ${input}`;
+      colorClass = 'error';
+    }
+
+    // Запускаем анимацию печатания
+    const finalElement = document.createElement('span');
+    finalElement.className = colorClass;
+    outputLine.appendChild(finalElement);
+
+    // Разблокируем ввод после завершения анимации
+    typeText(finalElement, responseText, 20, function() {
+      consoleInput.disabled = false;
+      consoleInput.focus();
+      consoleOutput.scrollTop = consoleOutput.scrollHeight;
+    });
   }
 
   // Закрытие консоли по клику вне
