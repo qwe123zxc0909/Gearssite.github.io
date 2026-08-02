@@ -760,6 +760,7 @@
     }
     .hidden-content .message .highlight { color: #5f9f5f; font-weight: 500; }
 
+    /* ===== МОДАЛЬНОЕ ОКНО ВХОДА С БУМАЖКОЙ ===== */
     .login-modal {
       display: none;
       position: fixed;
@@ -776,12 +777,97 @@
     }
     .login-modal.active { display: flex; }
 
+    .login-wrapper {
+      position: relative;
+      max-width: 420px;
+      width: 100%;
+    }
+
+    /* ===== БУМАЖКА С ПАРОЛЕМ ===== */
+    .sticky-note {
+      position: absolute;
+      top: -35px;
+      right: -30px;
+      background: #f5e6b8;
+      padding: 14px 18px 12px 16px;
+      border-radius: 4px;
+      transform: rotate(8deg);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.7), 2px 2px 0 0 #d4c4a0, -1px -1px 0 0 #d4c4a0;
+      z-index: 10;
+      animation: noteFloat 3s ease-in-out infinite;
+      max-width: 180px;
+      border: 1px solid #d4c4a0;
+    }
+    .sticky-note::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 20px;
+      width: 30px;
+      height: 12px;
+      background: #f5e6b8;
+      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
+    }
+    .sticky-note .note-text {
+      font-family: 'Courier New', monospace;
+      font-size: 0.6rem;
+      color: #3a2a1a;
+      letter-spacing: 2px;
+      line-height: 1.8;
+      text-align: center;
+    }
+    .sticky-note .note-text .password {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #2a1a0a;
+      letter-spacing: 4px;
+      background: rgba(200, 180, 140, 0.3);
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin-top: 4px;
+      border: 1px dashed #8a7a5a;
+    }
+    .sticky-note .note-text .label {
+      font-size: 0.5rem;
+      color: #6a5a3a;
+      letter-spacing: 3px;
+    }
+    .sticky-note .pin {
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 16px;
+      height: 16px;
+      background: radial-gradient(circle at 35% 35%, #e8d8b0, #c4b490);
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+      border: 1px solid #b4a480;
+    }
+    .sticky-note .pin::after {
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 6px;
+      height: 6px;
+      background: radial-gradient(circle, #f0e8d0, #d4c8a8);
+      border-radius: 50%;
+      opacity: 0.6;
+    }
+
+    @keyframes noteFloat {
+      0%, 100% { transform: rotate(8deg) translateY(0px); }
+      50% { transform: rotate(5deg) translateY(-4px); }
+    }
+
     .login-box {
       background: #050805;
       border: 2px solid #1a3a1a;
       border-radius: 20px;
       padding: 40px 36px;
-      max-width: 420px;
       width: 100%;
       box-shadow: 0 0 60px rgba(0, 30, 0, 0.4);
       animation: fadeIn 0.3s ease;
@@ -913,17 +999,28 @@
       .console-output { min-height: 150px; max-height: 250px; font-size: 0.7rem; }
       .music-player .track-info { min-width: 30px; font-size: 0.5rem; }
       .music-player .ctrl-btn { padding: 2px 6px; font-size: 0.6rem; }
+      .sticky-note { top: -25px; right: -10px; transform: rotate(5deg); padding: 10px 14px 8px 12px; max-width: 140px; }
+      .sticky-note .note-text .password { font-size: 0.75rem; }
+      .sticky-note .note-text { font-size: 0.5rem; }
+      .login-box { padding: 30px 20px; }
+      .login-wrapper { max-width: 340px; }
     }
     @media (max-width: 500px) {
       .camera-grid { grid-template-columns: 1fr; }
       .container { padding: 10px; }
       .system-title { font-size: 1.1rem; letter-spacing: 4px; }
       .music-player input[type="range"] { width: 30px; }
-      .login-box { padding: 28px 20px; }
+      .login-box { padding: 28px 16px; }
       .tab-btn { font-size: 0.55rem; padding: 6px 10px; letter-spacing: 1px; }
       .music-player .track-info { display: none; }
       .console-box { padding: 12px; }
       .console-output { min-height: 120px; max-height: 200px; font-size: 0.65rem; }
+      .sticky-note { top: -20px; right: -5px; transform: rotate(3deg); padding: 8px 10px 6px 10px; max-width: 110px; }
+      .sticky-note .note-text .password { font-size: 0.65rem; letter-spacing: 2px; padding: 2px 6px; }
+      .sticky-note .note-text { font-size: 0.45rem; }
+      .sticky-note .pin { width: 12px; height: 12px; top: -6px; }
+      .sticky-note .pin::after { width: 4px; height: 4px; top: 3px; left: 3px; }
+      .login-wrapper { max-width: 300px; }
     }
   </style>
 </head>
@@ -984,13 +1081,26 @@
     <div class="artifact"></div>
   </div>
 
+  <!-- ===== МОДАЛЬНОЕ ОКНО ВХОДА С БУМАЖКОЙ ===== -->
   <div class="login-modal" id="loginModal">
-    <div class="login-box">
-      <button class="close-login" onclick="closeLogin()">✕</button>
-      <div class="login-title">~ ВОЙТИ ~</div>
-      <input type="password" id="passwordInput" placeholder="ВВЕДИТЕ ПАРОЛЬ" onkeydown="if(event.key==='Enter') checkPassword()">
-      <button class="login-submit" onclick="checkPassword()">ПОДТВЕРДИТЬ</button>
-      <div class="login-error" id="loginError"></div>
+    <div class="login-wrapper">
+      <!-- Бумажка с паролем -->
+      <div class="sticky-note">
+        <div class="pin"></div>
+        <div class="note-text">
+          <span class="label">▸ ПАРОЛЬ ◂</span>
+          <span class="password">Evklid</span>
+          <span style="font-size:0.45rem; color:#8a7a5a;">(с учётом регистра)</span>
+        </div>
+      </div>
+
+      <div class="login-box">
+        <button class="close-login" onclick="closeLogin()">✕</button>
+        <div class="login-title">~ ВОЙТИ ~</div>
+        <input type="password" id="passwordInput" placeholder="ВВЕДИТЕ ПАРОЛЬ" onkeydown="if(event.key==='Enter') checkPassword()">
+        <button class="login-submit" onclick="checkPassword()">ПОДТВЕРДИТЬ</button>
+        <div class="login-error" id="loginError"></div>
+      </div>
     </div>
   </div>
 
@@ -1322,8 +1432,7 @@
     document.getElementById('consolePage').classList.remove('active');
   }
 
-  // Функция анимации печатания
-  function typeText(element, text, speed = 25, callback) {
+  function typeText(element, text, speed = 20, callback) {
     let index = 0;
     element.innerHTML = '';
     const cursor = document.createElement('span');
@@ -1342,7 +1451,6 @@
         element.scrollTop = element.scrollHeight;
         setTimeout(type, speed);
       } else {
-        // Убираем курсор после завершения
         if (element.lastChild === cursor) {
           element.removeChild(cursor);
         }
@@ -1360,26 +1468,18 @@
       return;
     }
 
-    // Блокируем ввод на время анимации
     consoleInput.disabled = true;
 
-    // Добавляем введённую команду в вывод
     const promptLine = document.createElement('div');
     promptLine.innerHTML = `<span class="prompt">❯</span> <span style="color:#6a8f6a;">${input}</span>`;
     consoleOutput.appendChild(promptLine);
-
-    // Прокрутка вниз
     consoleOutput.scrollTop = consoleOutput.scrollHeight;
-
-    // Очищаем поле ввода
     consoleInput.value = '';
 
-    // Создаём элемент для вывода ответа
     const outputLine = document.createElement('div');
     outputLine.style.marginTop = '2px';
     consoleOutput.appendChild(outputLine);
 
-    // Определяем текст ответа
     let responseText = '';
     let colorClass = '';
 
@@ -1400,12 +1500,10 @@ Ethernet(Восстановление) 20%
       colorClass = 'error';
     }
 
-    // Запускаем анимацию печатания
     const finalElement = document.createElement('span');
     finalElement.className = colorClass;
     outputLine.appendChild(finalElement);
 
-    // Разблокируем ввод после завершения анимации
     typeText(finalElement, responseText, 20, function() {
       consoleInput.disabled = false;
       consoleInput.focus();
@@ -1413,12 +1511,10 @@ Ethernet(Восстановление) 20%
     });
   }
 
-  // Закрытие консоли по клику вне
   document.getElementById('consolePage').addEventListener('click', function(e) {
     if (e.target === this) closeConsole();
   });
 
-  // ===== ЗАПУСК МУЗЫКИ (запасной) =====
   document.addEventListener('click', function() {
     if (musicAudio.paused) {
       musicAudio.play().catch(() => {});
