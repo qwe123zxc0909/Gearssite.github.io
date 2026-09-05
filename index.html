@@ -760,7 +760,6 @@
     }
     .hidden-content .message .highlight { color: #5f9f5f; font-weight: 500; }
 
-    /* ===== МОДАЛЬНОЕ ОКНО ВХОДА С БУМАЖКОЙ ===== */
     .login-modal {
       display: none;
       position: fixed;
@@ -783,7 +782,6 @@
       width: 100%;
     }
 
-    /* ===== БУМАЖКА С ПАРОЛЕМ ===== */
     .sticky-note {
       position: absolute;
       top: -35px;
@@ -1081,10 +1079,8 @@
     <div class="artifact"></div>
   </div>
 
-  <!-- ===== МОДАЛЬНОЕ ОКНО ВХОДА С БУМАЖКОЙ ===== -->
   <div class="login-modal" id="loginModal">
     <div class="login-wrapper">
-      <!-- Бумажка с паролем -->
       <div class="sticky-note">
         <div class="pin"></div>
         <div class="note-text">
@@ -1093,7 +1089,6 @@
           <span style="font-size:0.45rem; color:#8a7a5a;">(с учётом регистра)</span>
         </div>
       </div>
-
       <div class="login-box">
         <button class="close-login" onclick="closeLogin()">✕</button>
         <div class="login-title">~ ВОЙТИ ~</div>
@@ -1129,9 +1124,10 @@
         <span class="prompt">~STAFFBOT~ v2.0</span>
         <span style="color:#3a5f3a;"> ── СИСТЕМА ГОТОВА</span>
         <span style="color:#2a4a2a;">─────────────────────────────</span>
-        <span style="color:#4a6f4a;">ВВЕДИТЕ КОМАНДУ:</span>
-        <span style="color:#3a5f3a;"> /status  — СТАТУС СИСТЕМЫ</span>
-        <span style="color:#3a5f3a;"> /reload  — ПЕРЕЗАГРУЗКА</span>
+        <span style="color:#4a6f4a;">ДОСТУПНЫЕ КОМАНДЫ:</span>
+        <span style="color:#3a5f3a;"> /status   — СТАТУС СИСТЕМЫ</span>
+        <span style="color:#3a5f3a;"> /reload   — ПЕРЕЗАГРУЗКА</span>
+        <span style="color:#3a5f3a;"> /protocol — ПРОТОКОЛЫ ДОСТУПА</span>
         <span style="color:#2a4a2a;">─────────────────────────────</span>
       </div>
       <div class="console-input-line">
@@ -1421,8 +1417,16 @@
   const consoleOutput = document.getElementById('consoleOutput');
   const consoleInput = document.getElementById('consoleInput');
 
+  // Состояние для /protocol
+  let protocolState = {
+    active: false,
+    protocolName: '',
+    step: 0 // 0 - ожидание ввода названия, 1 - ожидание y/n
+  };
+
   function openConsole() {
     document.getElementById('consolePage').classList.add('active');
+    protocolState.active = false;
     setTimeout(() => {
       consoleInput.focus();
     }, 100);
@@ -1430,6 +1434,7 @@
 
   function closeConsole() {
     document.getElementById('consolePage').classList.remove('active');
+    protocolState.active = false;
   }
 
   function typeText(element, text, speed = 20, callback) {
@@ -1470,6 +1475,13 @@
 
     consoleInput.disabled = true;
 
+    // Проверяем, находимся ли мы в режиме /protocol
+    if (protocolState.active) {
+      handleProtocolInput(input);
+      return;
+    }
+
+    // Обычная обработка команд
     const promptLine = document.createElement('div');
     promptLine.innerHTML = `<span class="prompt">❯</span> <span style="color:#6a8f6a;">${input}</span>`;
     consoleOutput.appendChild(promptLine);
@@ -1487,14 +1499,26 @@
       responseText = '✖ У вас нету прав';
       colorClass = 'error';
     } else if (input === '/status') {
-      responseText = `Нагрузка 78%
-Очищено 50%
-Кэш 25%
-ЦП 69%
-Память 70%
-Ethernet(Восстановление) 50%
-Диск C-511гб/2т | G-153гб/1т | E-556гб/1т`;
+      responseText = `Нагрузка 20%\nОчищено 100%(завершено)\nКэш 50%\nЦП 40%\nПамять 62%\nEthernet(Восстановление завершено) 100%\nДиск C-925гб/2т | G-196гб/1т | E-704гб/1т`;
       colorClass = 'info';
+    } else if (input === '/protocol') {
+      responseText = `*введите название протокола*\n(доступные: STAFFBOT, GEARS, PORTAL, LIBRARY)`;
+      colorClass = 'info';
+      // Активируем режим протокола
+      protocolState.active = true;
+      protocolState.step = 0;
+      protocolState.protocolName = '';
+      
+      const finalElement = document.createElement('span');
+      finalElement.className = colorClass;
+      outputLine.appendChild(finalElement);
+      
+      typeText(finalElement, responseText, 20, function() {
+        consoleInput.disabled = false;
+        consoleInput.focus();
+        consoleOutput.scrollTop = consoleOutput.scrollHeight;
+      });
+      return;
     } else {
       responseText = `✖ НЕИЗВЕСТНАЯ КОМАНДА: ${input}`;
       colorClass = 'error';
@@ -1511,8 +1535,111 @@ Ethernet(Восстановление) 50%
     });
   }
 
+  function handleProtocolInput(input) {
+    const outputLine = document.createElement('div');
+    outputLine.style.marginTop = '2px';
+    consoleOutput.appendChild(outputLine);
+
+    const promptLine = document.createElement('div');
+    promptLine.innerHTML = `<span class="prompt">❯</span> <span style="color:#6a8f6a;">${input}</span>`;
+    consoleOutput.appendChild(promptLine);
+    consoleOutput.scrollTop = consoleOutput.scrollHeight;
+    consoleInput.value = '';
+
+    let responseText = '';
+    let colorClass = 'info';
+
+    if (protocolState.step === 0) {
+      // Ожидаем название протокола
+      const name = input.toUpperCase();
+      protocolState.protocolName = name;
+
+      if (name === 'STAFFBOT' || name === 'GEARS') {
+        responseText = `"У вас нет прав на просмотр этого протокола"`;
+        colorClass = 'error';
+        protocolState.active = false;
+      } else if (name === 'LIBRARY') {
+        responseText = `"Права есть только у KV0LT, EVKLID, ANDER."`;
+        colorClass = 'warning';
+        protocolState.active = false;
+      } else if (name === 'PORTAL') {
+        responseText = `"Протокол созданный за отслеживанием системы портала. Хотите посмотреть статус? y/n"`;
+        colorClass = 'info';
+        protocolState.step = 1; // Переходим к ожиданию y/n
+      } else {
+        responseText = `✖ НЕИЗВЕСТНЫЙ ПРОТОКОЛ: ${input}`;
+        colorClass = 'error';
+        protocolState.active = false;
+      }
+
+      const finalElement = document.createElement('span');
+      finalElement.className = colorClass;
+      outputLine.appendChild(finalElement);
+
+      typeText(finalElement, responseText, 20, function() {
+        if (!protocolState.active) {
+          consoleInput.disabled = false;
+          consoleInput.focus();
+        } else {
+          // Если это PORTAL, ждём y/n
+          consoleInput.disabled = false;
+          consoleInput.focus();
+          // Добавляем подсказку
+          const hintLine = document.createElement('div');
+          hintLine.style.marginTop = '2px';
+          hintLine.innerHTML = `<span style="color:#3a5f3a;">❯ Введите y или n:</span>`;
+          consoleOutput.appendChild(hintLine);
+          consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+      });
+
+    } else if (protocolState.step === 1) {
+      // Ожидаем y/n для PORTAL
+      const answer = input.toLowerCase();
+      
+      if (answer === 'y' || answer === 'yes') {
+        responseText = `/preload "Сеть перезагружена"\n/pstatus\n"Загрузка ядра: 10/100%\nНагрев: 50%\nЗаряд для включения портала: 5/100% (Шкала заряда)"`;
+        colorClass = 'info';
+        protocolState.active = false;
+      } else if (answer === 'n' || answer === 'no') {
+        responseText = `"Отмена просмотра статуса портала."`;
+        colorClass = 'info';
+        protocolState.active = false;
+      } else {
+        responseText = `✖ НЕИЗВЕСТНЫЙ ОТВЕТ: ${input}. Введите y или n`;
+        colorClass = 'error';
+        // Оставляем активным, чтобы можно было повторить
+      }
+
+      const finalElement = document.createElement('span');
+      finalElement.className = colorClass;
+      outputLine.appendChild(finalElement);
+
+      typeText(finalElement, responseText, 20, function() {
+        if (!protocolState.active) {
+          consoleInput.disabled = false;
+          consoleInput.focus();
+        } else {
+          consoleInput.disabled = false;
+          consoleInput.focus();
+          // Добавляем повторную подсказку
+          const hintLine = document.createElement('div');
+          hintLine.style.marginTop = '2px';
+          hintLine.innerHTML = `<span style="color:#3a5f3a;">❯ Введите y или n:</span>`;
+          consoleOutput.appendChild(hintLine);
+          consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+      });
+    }
+
+    consoleOutput.scrollTop = consoleOutput.scrollHeight;
+  }
+
   document.getElementById('consolePage').addEventListener('click', function(e) {
-    if (e.target === this) closeConsole();
+    if (e.target === this) {
+      protocolState.active = false;
+      closeConsole();
+    }
   });
 
   document.addEventListener('click', function() {
