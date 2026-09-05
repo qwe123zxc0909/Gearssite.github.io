@@ -1417,11 +1417,10 @@
   const consoleOutput = document.getElementById('consoleOutput');
   const consoleInput = document.getElementById('consoleInput');
 
-  // Состояние для /protocol
   let protocolState = {
     active: false,
     protocolName: '',
-    step: 0 // 0 - ожидание ввода названия, 1 - ожидание y/n
+    step: 0
   };
 
   function openConsole() {
@@ -1475,13 +1474,11 @@
 
     consoleInput.disabled = true;
 
-    // Проверяем, находимся ли мы в режиме /protocol
     if (protocolState.active) {
       handleProtocolInput(input);
       return;
     }
 
-    // Обычная обработка команд
     const promptLine = document.createElement('div');
     promptLine.innerHTML = `<span class="prompt">❯</span> <span style="color:#6a8f6a;">${input}</span>`;
     consoleOutput.appendChild(promptLine);
@@ -1502,9 +1499,8 @@
       responseText = `Нагрузка 20%\nОчищено 100%(завершено)\nКэш 50%\nЦП 40%\nПамять 62%\nEthernet(Восстановление завершено) 100%\nДиск C-925гб/2т | G-196гб/1т | E-704гб/1т`;
       colorClass = 'info';
     } else if (input === '/protocol') {
-      responseText = `*введите название протокола*\n(доступные: STAFFBOT, GEARS, PORTAL, LIBRARY)`;
+      responseText = `*введите название протокола*`;
       colorClass = 'info';
-      // Активируем режим протокола
       protocolState.active = true;
       protocolState.step = 0;
       protocolState.protocolName = '';
@@ -1550,7 +1546,6 @@
     let colorClass = 'info';
 
     if (protocolState.step === 0) {
-      // Ожидаем название протокола
       const name = input.toUpperCase();
       protocolState.protocolName = name;
 
@@ -1565,7 +1560,7 @@
       } else if (name === 'PORTAL') {
         responseText = `"Протокол созданный за отслеживанием системы портала. Хотите посмотреть статус? y/n"`;
         colorClass = 'info';
-        protocolState.step = 1; // Переходим к ожиданию y/n
+        protocolState.step = 1;
       } else {
         responseText = `✖ НЕИЗВЕСТНЫЙ ПРОТОКОЛ: ${input}`;
         colorClass = 'error';
@@ -1581,10 +1576,8 @@
           consoleInput.disabled = false;
           consoleInput.focus();
         } else {
-          // Если это PORTAL, ждём y/n
           consoleInput.disabled = false;
           consoleInput.focus();
-          // Добавляем подсказку
           const hintLine = document.createElement('div');
           hintLine.style.marginTop = '2px';
           hintLine.innerHTML = `<span style="color:#3a5f3a;">❯ Введите y или n:</span>`;
@@ -1594,7 +1587,6 @@
       });
 
     } else if (protocolState.step === 1) {
-      // Ожидаем y/n для PORTAL
       const answer = input.toLowerCase();
       
       if (answer === 'y' || answer === 'yes') {
@@ -1608,7 +1600,6 @@
       } else {
         responseText = `✖ НЕИЗВЕСТНЫЙ ОТВЕТ: ${input}. Введите y или n`;
         colorClass = 'error';
-        // Оставляем активным, чтобы можно было повторить
       }
 
       const finalElement = document.createElement('span');
@@ -1622,7 +1613,6 @@
         } else {
           consoleInput.disabled = false;
           consoleInput.focus();
-          // Добавляем повторную подсказку
           const hintLine = document.createElement('div');
           hintLine.style.marginTop = '2px';
           hintLine.innerHTML = `<span style="color:#3a5f3a;">❯ Введите y или n:</span>`;
