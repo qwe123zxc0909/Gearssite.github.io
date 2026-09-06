@@ -1558,9 +1558,9 @@
         colorClass = 'warning';
         protocolState.active = false;
       } else if (name === 'PORTAL') {
-        responseText = `"Протокол созданный за отслеживанием системы портала. Хотите посмотреть статус? y/n"`;
+        responseText = `/preload "Сеть перезагружена"\n/pstatus\n"Загрузка ядра: 20/100%\nНагрев: 60%\nЗаряд для включения портала: 20/100% (Шкала заряда)"`;
         colorClass = 'info';
-        protocolState.step = 1;
+        protocolState.active = false;
       } else {
         responseText = `✖ НЕИЗВЕСТНЫЙ ПРОТОКОЛ: ${input}`;
         colorClass = 'error';
@@ -1572,53 +1572,9 @@
       outputLine.appendChild(finalElement);
 
       typeText(finalElement, responseText, 20, function() {
-        if (!protocolState.active) {
-          consoleInput.disabled = false;
-          consoleInput.focus();
-        } else {
-          consoleInput.disabled = false;
-          consoleInput.focus();
-          const hintLine = document.createElement('div');
-          hintLine.style.marginTop = '2px';
-          hintLine.innerHTML = `<span style="color:#3a5f3a;">❯ Введите y или n:</span>`;
-          consoleOutput.appendChild(hintLine);
-          consoleOutput.scrollTop = consoleOutput.scrollHeight;
-        }
-      });
-
-    } else if (protocolState.step === 1) {
-      const answer = input.toLowerCase();
-      
-      if (answer === 'y' || answer === 'yes') {
-        responseText = `/preload "Сеть перезагружена"\n/pstatus\n"Загрузка ядра: 11/100%\nНагрев: 45%\nЗаряд для включения портала: 40/100% (Шкала заряда)"`;
-        colorClass = 'info';
-        protocolState.active = false;
-      } else if (answer === 'n' || answer === 'no') {
-        responseText = `"Отмена просмотра статуса портала."`;
-        colorClass = 'info';
-        protocolState.active = false;
-      } else {
-        responseText = `✖ НЕИЗВЕСТНЫЙ ОТВЕТ: ${input}. Введите y или n`;
-        colorClass = 'error';
-      }
-
-      const finalElement = document.createElement('span');
-      finalElement.className = colorClass;
-      outputLine.appendChild(finalElement);
-
-      typeText(finalElement, responseText, 20, function() {
-        if (!protocolState.active) {
-          consoleInput.disabled = false;
-          consoleInput.focus();
-        } else {
-          consoleInput.disabled = false;
-          consoleInput.focus();
-          const hintLine = document.createElement('div');
-          hintLine.style.marginTop = '2px';
-          hintLine.innerHTML = `<span style="color:#3a5f3a;">❯ Введите y или n:</span>`;
-          consoleOutput.appendChild(hintLine);
-          consoleOutput.scrollTop = consoleOutput.scrollHeight;
-        }
+        consoleInput.disabled = false;
+        consoleInput.focus();
+        consoleOutput.scrollTop = consoleOutput.scrollHeight;
       });
     }
 
