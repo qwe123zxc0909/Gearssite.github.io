@@ -398,7 +398,7 @@
 
     .camera-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 10px;
     }
 
@@ -1173,6 +1173,8 @@
       <div class="cam"><video src="0007.mp4" muted autoplay loop></video><div class="cam-label"><span>◉</span> 0007 <span>▪▪▪</span></div></div>
       <div class="cam"><video src="0008.mp4" muted autoplay loop></video><div class="cam-label"><span>◉</span> 0008 <span>▪▪▪</span></div></div>
       <div class="cam"><video src="0009.mp4" muted autoplay loop></video><div class="cam-label"><span>◉</span> 0009 <span>▪▪▪</span></div></div>
+      <div class="cam"><video src="0010.mp4" muted autoplay loop></video><div class="cam-label"><span>◉</span> 0010 <span>▪▪▪</span></div></div>
+      <div class="cam"><video src="0011.mp4" muted autoplay loop></video><div class="cam-label"><span>◉</span> 0011 <span>▪▪▪</span></div></div>
     </div>
   </div>
 
@@ -1307,8 +1309,8 @@
   </div>
 
   <div class="footer-status">
-    <span>◉ ВИДЕОНАБЛЮДЕНИЕ · 9/9 АКТИВНЫ</span>
-    <span>⏣ 0001 · 0002 · 0003 · 0004 · 0005 · 0006 · 0007 · 0008 · 0009</span>
+    <span>◉ ВИДЕОНАБЛЮДЕНИЕ · 11/11 АКТИВНЫ</span>
+    <span>⏣ 0001 · 0002 · 0003 · 0004 · 0005 · 0006 · 0007 · 0008 · 0009 · 0010 · 0011</span>
     <span>❚❚❚❚❚❚❚❚❚❚ 91% · <span class="staffbot-id">~SB~</span></span>
   </div>
 
@@ -1413,7 +1415,7 @@
     if (e.target === this) closeHiddenPage();
   });
 
-  // ===== КОНСОЛЬ С АНИМАЦИЕЙ ПЕЧАТАНИЯ =====
+  // ===== КОНСОЛЬ =====
   const consoleOutput = document.getElementById('consoleOutput');
   const consoleInput = document.getElementById('consoleInput');
 
@@ -1510,7 +1512,7 @@
       }
     } else if (input === '/pstatus') {
       if (protocolState.portalActivated) {
-        responseText = `"Загрузка ядра: 20/100%\nНагрев: 60%\nЗаряд для включения портала: 40/100% (Шкала заряда)"`;
+        responseText = `"Загрузка ядра: 20/100%\nНагрев: 72%\nЗаряд для включения портала: 40/100% (Шкала заряда)"`;
         colorClass = 'info';
       } else {
         responseText = `✖ Доступ запрещён. Активируйте протокол PORTAL через /protocol`;
