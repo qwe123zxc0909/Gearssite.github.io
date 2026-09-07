@@ -1420,12 +1420,14 @@
   let protocolState = {
     active: false,
     protocolName: '',
-    step: 0
+    step: 0,
+    portalActivated: false
   };
 
   function openConsole() {
     document.getElementById('consolePage').classList.add('active');
     protocolState.active = false;
+    protocolState.portalActivated = false;
     setTimeout(() => {
       consoleInput.focus();
     }, 100);
@@ -1498,6 +1500,22 @@
     } else if (input === '/status') {
       responseText = `Нагрузка 20%\nОчищено 100%(завершено)\nКэш 50%\nЦП 40%\nПамять 62%\nEthernet(Восстановление завершено) 100%\nДиск C-925гб/2т | G-196гб/1т | E-704гб/1т`;
       colorClass = 'info';
+    } else if (input === '/preload') {
+      if (protocolState.portalActivated) {
+        responseText = `"Сеть перезагружена"`;
+        colorClass = 'info';
+      } else {
+        responseText = `✖ Доступ запрещён. Активируйте протокол PORTAL через /protocol`;
+        colorClass = 'error';
+      }
+    } else if (input === '/pstatus') {
+      if (protocolState.portalActivated) {
+        responseText = `"Загрузка ядра: 20/100%\nНагрев: 60%\nЗаряд для включения портала: 40/100% (Шкала заряда)"`;
+        colorClass = 'info';
+      } else {
+        responseText = `✖ Доступ запрещён. Активируйте протокол PORTAL через /protocol`;
+        colorClass = 'error';
+      }
     } else if (input === '/protocol') {
       responseText = `*введите название протокола*`;
       colorClass = 'info';
@@ -1558,9 +1576,10 @@
         colorClass = 'warning';
         protocolState.active = false;
       } else if (name === 'PORTAL') {
-        responseText = `/preload "Сеть перезагружена"\n/pstatus\n"Загрузка ядра: 20/100%\nНагрев: 60%\nЗаряд для включения портала: 20/100% (Шкала заряда)"`;
+        responseText = `"Протокол PORTAL активирован. Теперь доступны команды:\n/preload\n/pstatus"`;
         colorClass = 'info';
         protocolState.active = false;
+        protocolState.portalActivated = true;
       } else {
         responseText = `✖ НЕИЗВЕСТНЫЙ ПРОТОКОЛ: ${input}`;
         colorClass = 'error';
