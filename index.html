@@ -1500,7 +1500,7 @@
       responseText = '✖ У вас нету прав';
       colorClass = 'error';
     } else if (input === '/status') {
-      responseText = `Нагрузка 20%\nОчищено 100%(завершено)\nКэш 50%\nЦП 40%\nПамять 62%\nEthernet(Восстановление завершено) 100%\nДиск C-925гб/2т | G-196гб/1т | E-704гб/1т`;
+      responseText = `Нагрузка 42%\nКэш 50%\nЦП 30%\nПамять 32%\nEthernet 100%\nДиск C-1т/2т | G-295гб/1т | E-744гб/1т`;
       colorClass = 'info';
     } else if (input === '/preload') {
       if (protocolState.portalActivated) {
@@ -1512,7 +1512,7 @@
       }
     } else if (input === '/pstatus') {
       if (protocolState.portalActivated) {
-        responseText = `"Загрузка ядра: 79/100%\nНагрев: 75%\nЗаряд для включения портала: 80/100% (Шкала заряда)"`;
+        responseText = `"Загрузка ядра: 100/100%\nНагрев: 25%\nЗаряд для включения портала: 100/100% (Шкала заряда)"`;
         colorClass = 'info';
       } else {
         responseText = `✖ Доступ запрещён. Активируйте протокол PORTAL через /protocol`;
